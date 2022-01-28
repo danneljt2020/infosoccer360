@@ -38,10 +38,16 @@ def show_signup_form():
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
+
     if current_user.is_authenticated:
         return redirect(url_for('public.index'))
+
     form = LoginForm()
-    if form.validate_on_submit():
+
+    if request.method == 'GET':
+        return render_template('auth/login.html', form=form, found=True)
+
+    if request.method == 'POST' and form.validate_on_submit():
         user = User.get_by_email(form.email.data)
         if user is not None and user.check_password(form.password.data):
             login_user(user, remember=form.remember_me.data)
@@ -49,13 +55,15 @@ def login():
             if not next_page or url_parse(next_page).netloc != '':
                 next_page = url_for('public.index')
             return redirect(next_page)
-    return render_template('auth/login.html', form=form)
+
+    return render_template('auth/login.html', form=form, found=False)
 
 
 @auth_bp.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('public.index'))
+
 
 @login_manager.user_loader
 def load_user(user_id):

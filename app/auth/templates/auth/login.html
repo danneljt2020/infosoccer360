@@ -45,6 +45,9 @@
                                 {% for error in form.password.errors %}
                                     <span style="color: red;">{{ error }}</span>
                                 {% endfor %}
+                                {% if not found and form.password.errors|length == 0  and form.email.errors|length == 0%}
+                                    <span style="color: red;">Credenciales incorrectas</span>
+                                {% endif %}
                             </div>
                             <div class="checkbox">
                                 <label>
