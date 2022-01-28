@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Admin: Info Soccer 360</title>
+    <!-- ================= Favicon ================== -->
+    <link rel="shortcut icon" href="{{ url_for("static", filename="images/football_40637.png") }}">
+
+    <!-- Styles -->
+    <link href="{{ url_for("static", filename="css/lib/font-awesome.min.css") }}" rel="stylesheet">
+    <link href="{{ url_for("static", filename="css/lib/themify-icons.css") }}" rel="stylesheet">
+    <link href="{{ url_for("static", filename="css/lib/bootstrap.min.css") }}" rel="stylesheet">
+    <link href="{{ url_for("static", filename="css/lib/helper.css") }}" rel="stylesheet">
+    <link href="{{ url_for("static", filename="css/style.css") }}" rel="stylesheet">
+</head>
+
+<body class="bg-primary">
+
+<div class="unix-login">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="login-content">
+                    <div class="login-logo">
+                        <a href="#"><span>Info Soccer 360</span></a>
+                    </div>
+                    <div class="login-form">
+                        <h4>Registro</h4>
+                        <form>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Nombre</label>
+                                        <input type="text" class="form-control" placeholder="Nombre">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Apellidos</label>
+                                        <input type="text" class="form-control" placeholder="Apellidos">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Correo</label>
+                                        <input type="email" class="form-control" placeholder="Correo">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Teléfono</label>
+                                        <input type="tel" class="form-control" placeholder="Teléfono">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Contraseña</label>
+                                        <input type="password" class="form-control" placeholder="Contraseña">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Repite la Contraseña</label>
+                                        <input type="password" class="form-control" placeholder="Repite la Contraseña">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Registrarme</button>
+                            <div class="register-link m-t-15 text-center">
+                                <p>Ya tienes una cuenta? <a href="#"> Acceder </a></p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>
