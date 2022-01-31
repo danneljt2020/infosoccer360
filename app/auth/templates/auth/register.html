@@ -1,113 +1,83 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Admin: Info Soccer 360</title>
-    <!-- ================= Favicon ================== -->
-    <link rel="shortcut icon" href="{{ url_for("static", filename="images/football_40637.png") }}">
-
-    <!-- Styles -->
-    <link href="{{ url_for("static", filename="css/lib/font-awesome.min.css") }}" rel="stylesheet">
-    <link href="{{ url_for("static", filename="css/lib/themify-icons.css") }}" rel="stylesheet">
-    <link href="{{ url_for("static", filename="css/lib/bootstrap.min.css") }}" rel="stylesheet">
-    <link href="{{ url_for("static", filename="css/lib/helper.css") }}" rel="stylesheet">
-    <link href="{{ url_for("static", filename="css/style.css") }}" rel="stylesheet">
-</head>
-
-<body class="bg-primary">
-
-<div class="unix-login">
-    <div class="container-fluid">
-        <div class="row justify-content-center">
-            <div class="col-lg-8">
-                <div class="login-content">
-                    <div class="login-logo">
-                        <a href="#"><span>Info Soccer 360</span></a>
-                    </div>
-                    <div class="login-form">
-                        <h4>Registro</h4>
-                        {% if error %}
-                            <p style="color: red;"><strong>Error:</strong> {{ error }}
-                        {% endif %}
-                        <form action="" method="post" novalidate>
-                            {{ form.hidden_tag() }}
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Nombre</label>
-                                        {{ form.name(size=64,class="form-control", placeholder="Nombre") }}
-                                        {% for error in form.name.errors %}
-                                            <span style="color: red;">{{ error }}</span>
-                                        {% endfor %}
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Apellidos</label>
-                                        {{ form.lastname(size=64,class="form-control", placeholder="Apellidos") }}
-                                        {% for error in form.lastname.errors %}
-                                            <span style="color: red;">{{ error }}</span>
-                                        {% endfor %}
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Correo</label>
-                                        {{ form.email(class="form-control", placeholder="Correo") }}
-                                        {% for error in form.email.errors %}
-                                            <span style="color: red;">{{ error }}</span>
-                                        {% endfor %}
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Teléfono</label>
-                                        {{ form.phone(class="form-control", placeholder="Teléfono") }}
-                                        {% for error in form.phone.errors %}
-                                            <span style="color: red;">{{ error }}</span>
-                                        {% endfor %}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Contraseña</label>
-                                        {{ form.password(class="form-control", placeholder="Contraseña") }}
-                                        {% for error in form.password.errors %}
-                                            <span style="color: red;">{{ error }}</span>
-                                        {% endfor %}
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Repite la Contraseña</label>
-                                        {{ form.password2(class="form-control", placeholder="Repite Contraseña") }}
-                                        {% for error in form.password2.errors %}
-                                            <span style="color: red;">{{ error }}</span>
-                                        {% endfor %}
-                                    </div>
-                                </div>
-                            </div>
-                            {{ form.submit(class="btn btn-primary btn-flat m-b-30 m-t-30") }}
-                            <div class="register-link m-t-15 text-center">
-                        <p>Ya tienes una cuenta? <a href="{{ url_for('auth.login') }}"> Acceder </a></p>
-                    </div>
-                    </form>
-                </div>
-            </div>
+{% extends 'base_auth.html' %}
+{% block content %}
+    <div class="col-lg-8">
+        <div class="login-content">
+        <div class="login-logo">
+            <a href="#"><span>Info Soccer 360</span></a>
         </div>
+        <div class="login-form">
+            <h4>Registro</h4>
+            {% if error %}
+                <p style="color: red;"><strong>Error:</strong> {{ error }}
+            {% endif %}
+            <form action="" method="post" novalidate>
+                {{ form.hidden_tag() }}
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Nombre</label>
+                            {{ form.name(size=64,class="form-control", placeholder="Nombre") }}
+                            {% for error in form.name.errors %}
+                                <span style="color: red;">{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Apellidos</label>
+                            {{ form.lastname(size=64,class="form-control", placeholder="Apellidos") }}
+                            {% for error in form.lastname.errors %}
+                                <span style="color: red;">{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Correo</label>
+                            {{ form.email(class="form-control", placeholder="Correo") }}
+                            {% for error in form.email.errors %}
+                                <span style="color: red;">{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Teléfono</label>
+                            {{ form.phone(class="form-control", placeholder="Teléfono") }}
+                            {% for error in form.phone.errors %}
+                                <span style="color: red;">{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Contraseña</label>
+                            {{ form.password(class="form-control", placeholder="Contraseña") }}
+                            {% for error in form.password.errors %}
+                                <span style="color: red;">{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Repite la Contraseña</label>
+                            {{ form.password2(class="form-control", placeholder="Repite Contraseña") }}
+                            {% for error in form.password2.errors %}
+                                <span style="color: red;">{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                {{ form.submit(class="btn btn-primary btn-flat m-b-30 m-t-30") }}
+                <div class="register-link m-t-15 text-center">
+            <p>Ya tienes una cuenta? <a href="{{ url_for('auth.login') }}"> Acceder </a></p>
+        </div>
+        </form>
     </div>
-</div>
-</div>
-
-</body>
-
-</html>
+    </div>
+{% endblock %}
