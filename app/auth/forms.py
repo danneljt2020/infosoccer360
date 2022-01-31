@@ -8,10 +8,10 @@ class SignupForm(FlaskForm):
     lastname = StringField('Apellido', validators=[DataRequired('Este campo es requerido.'), Length(max=64)])
     phone = StringField('Teléfono', validators=[DataRequired('Este campo es requerido.'), Length(max=64)])
     password = PasswordField('Contraseña', validators=[DataRequired('Este campo es requerido.'),
-                                                       Length(min=6)])
+                                                       Length(min=6, message='La contraseña debe tener al menos 6 caracteres.')])
     password2 = PasswordField('Repite contraseña', validators=[DataRequired('Este campo es requerido.'),
                                                                EqualTo('password', 'Las contraseñas no coinciden.'),
-                                                               Length(min=6)])
+                                                               Length(min=6, message='La contraseña debe tener al menos 6 caracteres.')])
     email = StringField('Email', validators=[DataRequired('Este campo es requerido.'),
                                              Email('El correo introducido no es correcto.')])
     submit = SubmitField('Registrarse')
