@@ -30,18 +30,28 @@
                     </div>
                     <div class="login-form">
                         <h4>Registro</h4>
-                        <form>
+                        {% if error %}
+                            <p style="color: red;"><strong>Error:</strong> {{ error }}
+                        {% endif %}
+                        <form action="" method="post" novalidate>
+                            {{ form.hidden_tag() }}
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Nombre</label>
-                                        <input type="text" class="form-control" placeholder="Nombre">
+                                        {{ form.name(size=64,class="form-control", placeholder="Nombre") }}
+                                        {% for error in form.name.errors %}
+                                            <span style="color: red;">{{ error }}</span>
+                                        {% endfor %}
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Apellidos</label>
-                                        <input type="text" class="form-control" placeholder="Apellidos">
+                                        {{ form.lastname(size=64,class="form-control", placeholder="Apellidos") }}
+                                        {% for error in form.lastname.errors %}
+                                            <span style="color: red;">{{ error }}</span>
+                                        {% endfor %}
                                     </div>
                                 </div>
                             </div>
@@ -50,13 +60,19 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Correo</label>
-                                        <input type="email" class="form-control" placeholder="Correo">
+                                        {{ form.email(class="form-control", placeholder="Correo") }}
+                                        {% for error in form.email.errors %}
+                                            <span style="color: red;">{{ error }}</span>
+                                        {% endfor %}
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Teléfono</label>
-                                        <input type="tel" class="form-control" placeholder="Teléfono">
+                                        {{ form.phone(class="form-control", placeholder="Teléfono") }}
+                                        {% for error in form.phone.errors %}
+                                            <span style="color: red;">{{ error }}</span>
+                                        {% endfor %}
                                     </div>
                                 </div>
                             </div>
@@ -64,27 +80,32 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Contraseña</label>
-                                        <input type="password" class="form-control" placeholder="Contraseña">
+                                        {{ form.password(class="form-control", placeholder="Contraseña") }}
+                                        {% for error in form.password.errors %}
+                                            <span style="color: red;">{{ error }}</span>
+                                        {% endfor %}
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Repite la Contraseña</label>
-                                        <input type="password" class="form-control" placeholder="Repite la Contraseña">
+                                        {{ form.password2(class="form-control", placeholder="Repite Contraseña") }}
+                                        {% for error in form.password2.errors %}
+                                            <span style="color: red;">{{ error }}</span>
+                                        {% endfor %}
                                     </div>
                                 </div>
                             </div>
-
-                            <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Registrarme</button>
+                            {{ form.submit(class="btn btn-primary btn-flat m-b-30 m-t-30") }}
                             <div class="register-link m-t-15 text-center">
-                                <p>Ya tienes una cuenta? <a href="#"> Acceder </a></p>
-                            </div>
-                        </form>
+                        <p>Ya tienes una cuenta? <a href="{{ url_for('auth.login') }}"> Acceder </a></p>
                     </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>
 
 </body>

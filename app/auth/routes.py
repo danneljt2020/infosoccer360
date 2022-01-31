@@ -8,7 +8,7 @@ from .forms import SignupForm, LoginForm
 from .models import User
 
 
-@auth_bp.route("/signup/", methods=["GET", "POST"])
+@auth_bp.route("/registro/", methods=["GET", "POST"])
 def show_signup_form():
     if current_user.is_authenticated:
         return redirect(url_for('public.index'))
@@ -33,7 +33,7 @@ def show_signup_form():
             if not next_page or url_parse(next_page).netloc != '':
                 next_page = url_for('public.index')
             return redirect(next_page)
-    return render_template('auth/signup_form.html', form=form, error=error)
+    return render_template('auth/register.html', form=form, error=error)
 
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
