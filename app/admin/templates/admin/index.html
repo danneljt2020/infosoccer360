@@ -36,6 +36,7 @@
                     <li><a href="#"><i class="ti-medall"></i> Moderación</a></li>
                     <li class="label">Gestión Estadísticas</li>
                     <li><a><i class="ti-settings"></i> Configuración</a></li>
+                    <li><a href="{{ url_for("auth.logout") }}"><i class="ti-power-off"></i> Salir</a></li>
                 </ul>
             </div>
         </div>
@@ -123,21 +124,7 @@
                         </div>
                         <div class="dropdown dib">
                             <div class="header-icon" data-toggle="dropdown">
-                                <span class="user-avatar">John
-                                    <i class="ti-angle-down f-s-10"></i>
-                                </span>
-                                <div class="drop-down dropdown-profile dropdown-menu dropdown-menu-right">
-                                    <div class="dropdown-content-body">
-                                        <ul>
-                                            <li>
-                                                <a href="#">
-                                                    <i class="ti-power-off"></i>
-                                                    <span>Logout</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
+                                <span class="user-avatar"><i class="ti-user color-primary"></i> John</span>
                             </div>
                         </div>
                     </div>
@@ -145,7 +132,6 @@
             </div>
         </div>
     </div>
-
 
     <div class="content-wrap">
         <div class="main">
@@ -299,7 +285,11 @@
 
     <!-- jquery vendor -->
     <script src="{{ url_for("static", filename="js/lib/jquery.min.js") }}"></script>
+
     <!-- nano scroller -->
+
+    <script src="{{ url_for("static", filename="js/lib/jquery.nanoscroller.min.js") }}"></script>
+
     <script src="{{ url_for("static", filename="js/lib/menubar/sidebar.js") }}"></script>
     <script src="{{ url_for("static", filename="js/lib/preloader/pace.min.js") }}"></script>
     <!-- sidebar -->
