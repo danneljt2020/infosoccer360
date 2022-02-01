@@ -1,29 +1,49 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>{% block title %}{% endblock %}</title>
-    <link rel="stylesheet" href="{{ url_for("static", filename="base.css") }}">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin: Info Soccer 360</title>
+    <!-- ================= Favicon ================== -->
+
+     <link rel="shortcut icon" href="{{ url_for("static", filename="images/football_40637.png") }}">
+
+    <!-- Styles -->
+    <link href="{{ url_for("static", filename="css/lib/chartist/chartist.min.css") }}" rel="stylesheet">
+    <link href="{{ url_for("static", filename="css/lib/font-awesome.min.css") }}" rel="stylesheet">
+    <link href="{{ url_for("static", filename="css/lib/themify-icons.css") }}" rel="stylesheet">
+    <link href="{{ url_for("static", filename="css/lib/menubar/sidebar.css") }}" rel="stylesheet">
+    <link href="{{ url_for("static", filename="css/lib/bootstrap.min.css") }}" rel="stylesheet">
+    <link href="{{ url_for("static", filename="css/lib/helper.css") }}" rel="stylesheet">
+    <link href="{{ url_for("static", filename="css/style.css") }}" rel="stylesheet">
+
+    {% block extra_css %}{% endblock %}
+
 </head>
+
 <body>
-<div>
-    <ul class="user-info">
-        <li><a href="{{ url_for('public.index') }}">Home</a></li>
-        {% if current_user.is_anonymous %}
-            <li><a href="{{ url_for('auth.login') }}">Login</a></li>
-            <li> | </li>
-            <li><a href="{{ url_for('auth.show_signup_form') }}">Registrar</a></li>
-        {% else %}
-            <li>{{ current_user.name }}</li>
-            {% if current_user.is_admin %}
-                <li> | </li>
-                <li><a href="{{ url_for('admin.dashboard') }}">Admin</a></li>
-            {% endif %}
-            <li> | </li>
-            <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
-        {% endif %}
-    </ul>
-</div>
-{% block content %}{% endblock %}
+
+    {% block content %}{% endblock %}
+
+    <!-- jquery vendor -->
+    <script src="{{ url_for("static", filename="js/lib/jquery.min.js") }}"></script>
+
+    <!-- nano scroller -->
+    <script src="{{ url_for("static", filename="js/lib/jquery.nanoscroller.min.js") }}"></script>
+
+    <script src="{{ url_for("static", filename="js/lib/menubar/sidebar.js") }}"></script>
+    <script src="{{ url_for("static", filename="js/lib/preloader/pace.min.js") }}"></script>
+    <!-- sidebar -->
+
+    <script src="{{ url_for("static", filename="js/lib/bootstrap.min.js") }}"></script>
+    <script src="{{ url_for("static", filename="js/scripts.js") }}"></script>
+    <!-- bootstrap -->
+
+
+    {% block extra_js %}{% endblock %}
+
 </body>
+
 </html>

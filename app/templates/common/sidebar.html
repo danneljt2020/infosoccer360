@@ -1,0 +1,19 @@
+ <div class="sidebar sidebar-hide-to-small sidebar-shrink sidebar-gestures">
+        <div class="nano">
+            <div class="nano-content">
+                <ul>
+                    <div class="logo"><a href="{{ url_for("admin.dashboard") }}">
+                        <span>InfoSoccer360 Admin</span></a>
+                    </div>
+                    <li class="label">Seguridad</li>
+                    <li><a href="{{ url_for('admin.list_users') }}"><i class="ti-user"></i> Usuarios </a></li>
+                    <li><a href="#"><i class="ti-comments"></i> Moderación</a></li>
+                    <li class="label">Gestión</li>
+                    <li><a><i class="ti-target"></i> Pronósticos </a></li>
+                    <li><a><i class="ti-announcement"></i> Próximos Juegos  </a></li>
+                    <li><a><i class="ti-archive"></i> Juegos Conluidos  </a></li>
+                    <li><a href="{{ url_for("auth.logout") }}"><i class="ti-power-off"></i> Salir</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
