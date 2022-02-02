@@ -21,4 +21,11 @@ def dashboard():
 @admin_required
 def list_users():
     users = User.get_all()
-    return render_template("admin/list_users.html", users=users)
+    return render_template("admin/users/list_users.html", users=users)
+
+
+@admin_bp.route("/admin/moderation")
+@login_required
+@admin_required
+def list_moderation():
+    return render_template("admin/moderation/moderation.html")
