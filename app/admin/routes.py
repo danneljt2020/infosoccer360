@@ -1,6 +1,5 @@
-from flask import render_template, redirect, url_for, abort
-from flask_login import login_required, current_user
-from sqlalchemy.orm import session
+from flask import render_template
+from flask_login import login_required
 
 from . import admin_bp
 from ..auth.decorators import admin_required

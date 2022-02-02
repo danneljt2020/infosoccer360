@@ -2,6 +2,8 @@
 
 {% block extra_css %}
     <link href="{{ url_for("static",filename = 'css/lib/data-table/buttons.bootstrap.min.css') }}" rel="stylesheet"/>
+    <link href="{{ url_for("static",filename = 'css/lib/sweetalert/sweetalert.css') }}" rel="stylesheet"/>
+
 {% endblock %}
 
 {% block content %}
@@ -26,7 +28,8 @@
                         <div class="page-header">
                             <div class="page-title">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="{{ url_for("admin.dashboard") }}">Dashboard</a></li>
+                                    <li class="breadcrumb-item"><a href="{{ url_for("admin.dashboard") }}">Dashboard</a>
+                                    </li>
                                     <li class="breadcrumb-item active">Listado de Usuarios</li>
                                 </ol>
                             </div>
@@ -50,20 +53,41 @@
                                                 <th>Correo</th>
                                                 <th>Teléfono</th>
                                                 <th>Estado</th>
-                                                <th>Rol</th>
-                                                <th style="text-align: center">Acciones</th>
+                                                <th style="width: 10%">Rol</th>
+                                                <th style="width:15%;text-align: center">Acciones</th>
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr>
-                                                <td>Tiger Nixon</td>
-                                                <td>System Architect</td>
-                                                <td>asdasd@gmail.com</td>
-                                                <td>Edinburgh</td>
-                                                <td>$320,800</td>
-                                                <td>Adm</td>
-                                                <td></td>
-                                            </tr>
+                                            {% for user in users %}
+                                                <tr>
+                                                    <td>{{ user.name }}</td>
+                                                    <td>{{ user.last }}</td>
+                                                    <td>{{ user.email }}</td>
+                                                    <td>{{ user.phone }}</td>
+                                                    <td>$320,800</td>
+                                                    <td style="text-align: left">
+                                                        {% if user.is_admin  %}
+                                                           <span class="badge badge-success" >Admin</span>
+                                                        {% elif user.is_moderator%}
+                                                            <span class="badge badge-info" >Moderator</span>
+                                                        {% else %}
+                                                             <span class="badge badge-primary" >User</span>
+                                                        {% endif %}
+                                                    </td>
+                                                    <td style="text-align: center">
+                                                        <a href="#"><span class="badge badge-info"><i
+                                                                class="ti ti-eye"></i> </span></a>
+
+                                                        <a href="#"><span class="badge badge-success"><i
+                                                                class="ti ti-pencil-alt"></i> </span></a>
+
+                                                        <a class="btn_del_user" style="cursor: pointer"
+                                                           data-name={{ user.name }} data-id={{ user.id }}> <span
+                                                                class="badge badge-danger"><i
+                                                                class="ti ti-trash"></i> </span></a>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
                                             </tbody>
                                         </table>
                                     </div>
@@ -71,6 +95,7 @@
                             </div>
                             <!-- /# card -->
                         </div>
+
                         <!-- /# column -->
                     </div>
                     <!-- /# row -->
@@ -89,5 +114,29 @@
     <script src="{{ url_for("static", filename="js/lib/data-table/buttons.flash.min.js") }}"></script>
     <script src="{{ url_for("static", filename= "js/lib/data-table/buttons.html5.min.js") }}"></script>
     <script src="{{ url_for("static", filename="js/lib/data-table/datatables-init.js") }}"></script>
+
+    <script src="{{ url_for("static", filename="js/lib/sweetalert/sweetalert.min.js") }}"></script>
+
+    <script>
+        $(".btn_del_user").click(function (evt) {
+            let self = $(this)
+            self.data('id');
+
+            swal({
+                    title: "Esta seguro de eliminar al usuario: " + $(this).data('name'),
+                    text: "Submit to run ajax request !!",
+                    type: "info",
+                    showCancelButton: true,
+                    closeOnConfirm: false,
+                    showLoaderOnConfirm: true,
+                },
+                function () {
+                    setTimeout(function () {
+                        self.parents("tr").remove();
+                        swal("Eliminado!!", "El usuario ha sido eliminado satisfactoriamente.", "success");
+                    }, 2000);
+                });
+        });
+    </script>
 {% endblock %}
 

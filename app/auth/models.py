@@ -17,9 +17,11 @@ class User(db.Model, UserMixin):
     is_admin = db.Column(db.Boolean, default=False)
     is_moderator = db.Column(db.Boolean, default=False)
 
-    def __init__(self, name, email):
+    def __init__(self, name, email, last, phone):
         self.name = name
         self.email = email
+        self.last = last
+        self.phone = phone
 
     def __repr__(self):
         return f'<User {self.email}>'
