@@ -52,7 +52,7 @@
                                                 <th>Apellidos</th>
                                                 <th>Correo</th>
                                                 <th>Teléfono</th>
-                                                <th>Estado</th>
+                                                <th style="width: 15%;">Estado</th>
                                                 <th style="width: 10%">Rol</th>
                                                 <th style="width:15%;text-align: center">Acciones</th>
                                             </tr>
@@ -64,14 +64,20 @@
                                                     <td>{{ user.last }}</td>
                                                     <td>{{ user.email }}</td>
                                                     <td>{{ user.phone }}</td>
-                                                    <td>$320,800</td>
+                                                    <td>
+                                                        <select class="select_state input-sm form-control"
+                                                                data-id={{ user.id }}  data-name={{ user.name }}>
+                                                            <option value="1">Enable</option>
+                                                            <option value="0">Disable</option>
+                                                        </select>
+                                                    </td>
                                                     <td style="text-align: left">
-                                                        {% if user.is_admin  %}
-                                                           <span class="badge badge-success" >Admin</span>
-                                                        {% elif user.is_moderator%}
-                                                            <span class="badge badge-info" >Moderator</span>
+                                                        {% if user.is_admin %}
+                                                            <span class="badge badge-success">Admin</span>
+                                                        {% elif user.is_moderator %}
+                                                            <span class="badge badge-info">Moderator</span>
                                                         {% else %}
-                                                             <span class="badge badge-primary" >User</span>
+                                                            <span class="badge badge-primary">User</span>
                                                         {% endif %}
                                                     </td>
                                                     <td style="text-align: center">
@@ -120,11 +126,39 @@
     <script>
         $(".btn_del_user").click(function (evt) {
             let self = $(this)
-            self.data('id');
+            let id_user = self.data('id');
 
             swal({
                     title: "Esta seguro de eliminar al usuario: " + $(this).data('name'),
-                    text: "Submit to run ajax request !!",
+                    text: "",
+                    type: "info",
+                    showCancelButton: true,
+                    closeOnConfirm: false,
+                    showLoaderOnConfirm: true,
+                },
+                function () {
+                    $.ajax({
+                        method: 'DELETE',
+                        url: "{{ url_for('admin.delete_user') }}",
+                        data: {'id_user': id_user},
+                        success: function () {
+                            setTimeout(function () {
+                                self.parents("tr").remove();
+                                swal("Eliminado!!", "El usuario ha sido eliminado satisfactoriamente.", "success");
+                            }, 1000);
+                        }
+                    })
+                });
+        });
+
+
+        $('.select_state').on('change', function () {
+            let self = $(this)
+            let id_user = self.data('id');
+            let val = this.value
+            swal({
+                    title: "Esta seguro de actualizar el estado del usuario: " + $(this).data('name'),
+                    text: "",
                     type: "info",
                     showCancelButton: true,
                     closeOnConfirm: false,
@@ -132,9 +166,8 @@
                 },
                 function () {
                     setTimeout(function () {
-                        self.parents("tr").remove();
-                        swal("Eliminado!!", "El usuario ha sido eliminado satisfactoriamente.", "success");
-                    }, 2000);
+                        swal("Genial!!", "El estado ha sido actualizado satisfactoriamente.", "success");
+                    }, 1000);
                 });
         });
     </script>

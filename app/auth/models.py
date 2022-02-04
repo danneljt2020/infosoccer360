@@ -16,6 +16,7 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(128), nullable=False)
     is_admin = db.Column(db.Boolean, default=False)
     is_moderator = db.Column(db.Boolean, default=False)
+    state = db.Column(db.Boolean, default=True)
 
     def __init__(self, name, email, last, phone):
         self.name = name
