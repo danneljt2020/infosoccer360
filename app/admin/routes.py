@@ -35,6 +35,23 @@ def delete_user():
     return make_response(jsonify({'status': 'success'}), 200)
 
 
+@admin_bp.route("/admin/user/update_state/", methods=['PATCH'])
+@login_required
+@admin_required
+def update_state_user():
+    user_id = request.values.get('id_user')
+    state = request.values.get('state')
+
+    user = User.get_by_id(user_id)
+
+    if user is None:
+        return make_response(jsonify({'status': 'error'}), 404)
+    user.state = True if state == "1" else False
+    user.save()
+
+    return make_response(jsonify({'status': 'success'}), 200)
+
+
 @admin_bp.route("/admin/moderation")
 @login_required
 @admin_required

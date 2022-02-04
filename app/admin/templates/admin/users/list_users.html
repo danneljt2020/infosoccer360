@@ -165,9 +165,16 @@
                     showLoaderOnConfirm: true,
                 },
                 function () {
-                    setTimeout(function () {
-                        swal("Genial!!", "El estado ha sido actualizado satisfactoriamente.", "success");
-                    }, 1000);
+                    $.ajax({
+                        method: 'PATCH',
+                        url: "{{ url_for('admin.update_state_user') }}",
+                        data: {'id_user': id_user, 'state': val},
+                        success: function () {
+                            setTimeout(function () {
+                                swal("Genial!!", "El estado ha sido actualizado satisfactoriamente.", "success");
+                            }, 1000);
+                        }
+                    })
                 });
         });
     </script>
