@@ -1,7 +1,8 @@
-from flask import render_template, abort, make_response, jsonify, request
+from flask import render_template, abort, make_response, jsonify, request, redirect, url_for
 from flask_login import login_required
 
 from . import admin_bp
+from .templates.admin.forms import UserAdminForm
 from ..auth.decorators import admin_required
 from ..auth.models import User
 
@@ -50,6 +51,21 @@ def update_state_user():
     user.save()
 
     return make_response(jsonify({'status': 'success'}), 200)
+
+
+@admin_bp.route("/admin/user/<int:user_id>/", methods=['GET', 'POST'])
+@login_required
+@admin_required
+def update_user_form(user_id):
+    user = User.get_by_id(user_id)
+    if user is None:
+        abort(404)
+    form = UserAdminForm(obj=user)
+    if form.validate_on_submit():
+        user.is_admin = form.is_admin.data
+        user.save()
+        return redirect(url_for('admin.list_users'))
+    return render_template("admin/users/update_form.html", form=form, user=user)
 
 
 @admin_bp.route("/admin/moderation")

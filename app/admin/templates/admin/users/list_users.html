@@ -65,11 +65,15 @@
                                                     <td>{{ user.email }}</td>
                                                     <td>{{ user.phone }}</td>
                                                     <td>
-                                                        <select class="select_state input-sm form-control"
-                                                                data-id={{ user.id }}  data-name={{ user.name }}>
-                                                            <option value="1">Enable</option>
-                                                            <option value="0">Disable</option>
-                                                        </select>
+                                                        {% if user.is_admin %}
+                                                            <span style="padding-left:4px;font-weight: bold">Enable</span>
+                                                        {% else %}
+                                                            <select class="select_state input-sm form-control"
+                                                                    data-id={{ user.id }}  data-name={{ user.name }}>
+                                                                <option {% if user.state %} selected="selected" {% endif %} value="1">Enable</option>
+                                                                <option {% if not user.state %} selected="selected" {% endif %} value="0">Disable</option>
+                                                            </select>
+                                                        {% endif %}
                                                     </td>
                                                     <td style="text-align: left">
                                                         {% if user.is_admin %}
@@ -81,16 +85,18 @@
                                                         {% endif %}
                                                     </td>
                                                     <td style="text-align: center">
-                                                        <a href="#"><span class="badge badge-info"><i
-                                                                class="ti ti-eye"></i> </span></a>
-
-                                                        <a href="#"><span class="badge badge-success"><i
+                                                        {% if user.is_admin %}
+                                                           <span style="padding-left:4px;font-weight: bold">Not Actions</span>
+                                                        {% else %}
+                                                            <a href="{{ url_for('admin.update_user_form', user_id=user.id) }}"><span class="badge badge-success"><i
                                                                 class="ti ti-pencil-alt"></i> </span></a>
 
                                                         <a class="btn_del_user" style="cursor: pointer"
                                                            data-name={{ user.name }} data-id={{ user.id }}> <span
                                                                 class="badge badge-danger"><i
                                                                 class="ti ti-trash"></i> </span></a>
+                                                        {% endif %}
+
                                                     </td>
                                                 </tr>
                                             {% endfor %}
