@@ -43,33 +43,47 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="basic-elements">
-                                        <form>
+                                        <form action="" method="post" novalidate>
+                                            {{ form.hidden_tag() }}
                                             <div class="row">
                                                 <div class="col-lg-6">
                                                     <div class="form-group">
                                                         <label>Nombre</label>
-                                                        <input class="form-control" type="text" value="{{ user.name }}">
+                                                        {{ form.name(size=64,class="form-control", placeholder="Nombre") }}
+                                                        {% for error in form.name.errors %}
+                                                            <span style="color: red;">{{ error }}</span>
+                                                        {% endfor %}
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Correo</label>
-                                                        <input class="form-control" type="text" value="{{ user.email }}" readonly="">
+                                                        <input class="form-control" type="text" value="{{ user.email }}"
+                                                               readonly="">
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <div class="form-group">
                                                         <label>Apellidos</label>
-                                                        <input class="form-control" type="text" value="{{ user.last }}">
+                                                        {{ form.last(size=64,class="form-control", placeholder="Apellidos") }}
+                                                        {% for error in form.last.errors %}
+                                                            <span style="color: red;">{{ error }}</span>
+                                                        {% endfor %}
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Teléfono</label>
-                                                        <input class="form-control" type="text" value="{{ user.phone }}">
+                                                        {{ form.phone(class="form-control", placeholder="Teléfono") }}
+                                                        {% for error in form.phone.errors %}
+                                                            <span style="color: red;">{{ error }}</span>
+                                                        {% endfor %}
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-2">
                                                     <div class="form-group">
                                                         <div class="checkbox">
                                                             <label>
-                                                                <input type="checkbox"> Es Admin
+                                                                {{ form.is_moderator }} Es Moderador<br>
+                                                                {% for error in form.is_moderator.errors %}
+                                                                    <span style="color: red;">{{ error }}</span>
+                                                                {% endfor %}
                                                             </label>
                                                         </div>
                                                     </div>
@@ -78,7 +92,10 @@
                                                     <div class="form-group">
                                                         <div class="checkbox">
                                                             <label>
-                                                                <input type="checkbox"> Es Admin
+                                                                {{ form.is_admin }} Es Admin<br>
+                                                                {% for error in form.is_admin.errors %}
+                                                                    <span style="color: red;">{{ error }}</span>
+                                                                {% endfor %}
                                                             </label>
                                                         </div>
                                                     </div>
@@ -87,7 +104,10 @@
                                                     <div class="form-group">
                                                         <div class="checkbox">
                                                             <label>
-                                                                <input type="checkbox"> Estado
+                                                                {{ form.state }} Estado <br>
+                                                                {% for error in form.state.errors %}
+                                                                    <span style="color: red;">{{ error }}</span>
+                                                                {% endfor %}
                                                             </label>
                                                         </div>
                                                     </div>

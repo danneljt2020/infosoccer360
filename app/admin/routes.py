@@ -2,7 +2,8 @@ from flask import render_template, abort, make_response, jsonify, request, redir
 from flask_login import login_required
 
 from . import admin_bp
-from .templates.admin.forms import UserAdminForm
+from .forms import UserAdminForm
+
 from ..auth.decorators import admin_required
 from ..auth.models import User
 
@@ -62,6 +63,11 @@ def update_user_form(user_id):
         abort(404)
     form = UserAdminForm(obj=user)
     if form.validate_on_submit():
+        user.name = form.name.data
+        user.last = form.last.data
+        user.phone = form.phone.data
+        user.is_moderator = form.is_moderator.data
+        user.state = form.state.data
         user.is_admin = form.is_admin.data
         user.save()
         return redirect(url_for('admin.list_users'))
