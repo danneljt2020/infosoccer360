@@ -6,6 +6,8 @@ from .forms import UserAdminForm
 
 from ..auth.decorators import admin_required
 from ..auth.models import User
+from ..admin.models import TableScore
+from ..api.consumer import *
 
 
 @admin_bp.route("/admin/")
@@ -79,3 +81,23 @@ def update_user_form(user_id):
 @admin_required
 def list_moderation():
     return render_template("admin/moderation/moderation.html")
+
+
+@admin_bp.route("/admin/update_table_score", methods=['GET'])
+@login_required
+@admin_required
+def update_table_score():
+    # country_code = request.values.get('country_code')
+    # league_code = request.values.get('league_code')
+
+    table_data = get_table_by_league('spain', 'laliga-santander')
+    if len(table_data) > 0:
+        response = make_response(jsonify({'status': 'success'}), 200)
+    #   save in DB table score
+        for row in table_data:
+            row_score = TableScore(row['won'], row['team_name'], row['lost'], row['points'], row['team_id'], row['rank'], row['games_played'])
+            row_score.save()
+    else:
+        response = make_response(jsonify({'status': 'error'}), 503)
+
+    return response

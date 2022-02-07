@@ -1,0 +1,48 @@
+{
+    "status": 200,
+    "data": [
+        {
+            "league_id": "7268",
+            "matches": [
+                {
+                    "round": 23,
+                    "match_id": "474959",
+                    "status": "FT",
+                    "team_2": {
+                        "country": "Spain",
+                        "name": "Levante",
+                        "id": "4164"
+                    },
+                    "last_update": 20220204202053,
+                    "team_1": {
+                        "country": "Spain",
+                        "name": "Getafe",
+                        "id": "3379"
+                    },
+                    "score": {
+                        "full_time": {
+                            "team_1": "3",
+                            "team_2": "0"
+                        },
+                        "half_time": {
+                            "team_1": "2",
+                            "team_2": "0"
+                        }
+                    },
+                    "time": {
+                        "scheduled": 20220204200000,
+                        "finish": 20220204215603,
+                        "timezone": "0.00",
+                        "start": 20220204200056
+                    },
+                    "round_info": "23"
+                }
+            ],
+            "league_name": "LaLiga Santander",
+            "country_id": "195",
+            "league_code": "laliga-santander",
+            "country_code": "spain",
+            "country_name": "Spain"
+        }
+    ]
+}
