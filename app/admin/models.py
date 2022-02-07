@@ -14,6 +14,7 @@ class TableScore(db.Model):
     team_id = db.Column(db.String(60), nullable=True)
     rank = db.Column(db.String(60), nullable=True)
     games_played = db.Column(db.String(60), nullable=True)
+    league = db.Column(db.String(60), nullable=True)
 
     def __init__(self, won, team_name, lost, points, team_id, rank, games_played):
         self.won = won
@@ -37,6 +38,11 @@ class TableScore(db.Model):
     @staticmethod
     def get_by_id(id):
         return TableScore.query.get(id)
+
+    @staticmethod
+    def get_by_league(league_param):
+        table = db.session.query(TableScore).filter(TableScore.league == league_param).all()
+        return table
 
     @staticmethod
     def get_all():

@@ -12,7 +12,7 @@
                     <li><a><i class="ti-target"></i> Pronósticos </a></li>
                     <li><a><i class="ti-announcement"></i> Próximos Juegos  </a></li>
                     <li><a><i class="ti-archive"></i> Juegos Conluidos  </a></li>
-                    <li><a><i class="ti-medall"></i> Tabla Posiciones</a></li>
+                    <li><a href="{{ url_for('admin.tables_scores') }}"><i class="ti-medall"></i> Tabla Posiciones</a></li>
                     <li><a href="{{ url_for("auth.logout") }}"><i class="ti-power-off"></i> Salir</a></li>
                 </ul>
             </div>

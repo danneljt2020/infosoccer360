@@ -24,7 +24,7 @@ def dashboard():
 @admin_required
 def list_users():
     users = User.get_all()
-    return render_template("admin/users/list_users.html", users=users)
+    return render_template("admin/users/table_score.html", users=users)
 
 
 @admin_bp.route("/admin/user/delete/", methods=['DELETE'])
@@ -83,6 +83,16 @@ def list_moderation():
     return render_template("admin/moderation/moderation.html")
 
 
+
+@admin_bp.route("/admin/table_score")
+@login_required
+@admin_required
+def tables_scores():
+    santander_table = TableScore.get_by_league('liga_santander')
+    return render_template("admin/table_score/table_score.html", santander_table=santander_table)
+
+
+# API Consumer
 @admin_bp.route("/admin/update_table_score", methods=['GET'])
 @login_required
 @admin_required
