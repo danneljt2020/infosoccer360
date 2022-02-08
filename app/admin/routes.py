@@ -101,7 +101,7 @@ def tables_scores():
 @admin_required
 def update_table_score():
     table_data_santander = get_table_by_league("spain", "laliga-santander")
-    time.sleep(3)
+    time.sleep(2)
     table_data_premier = get_table_by_league("england", "premier-league")
 
     response = make_response(jsonify({"santander": "success", "premier": "success", 'status': 'success'}), 200)

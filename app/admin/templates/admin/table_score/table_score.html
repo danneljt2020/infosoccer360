@@ -84,10 +84,6 @@
 
     <script>
         $(".btn_upd_table_score").click(function (evt) {
-            let self = $(this)
-            let league = self.data('league');
-            let country = self.data('country');
-
             swal({
                     title: "Atención!",
                     text: "Está seguro de actualizar la tabla de posiciones.",
@@ -100,7 +96,7 @@
                     $.ajax({
                         method: 'PATCH',
                         url: "{{ url_for('admin.update_table_score') }}",
-                        data: {'league_code': league, 'country_code': country},
+                        data: {},
                         success: function (response) {
                             if (response.status === "success") {
                                 setTimeout(function () {
@@ -111,9 +107,9 @@
                                     swal("Ohhh!", "Algo ha salido mal", "warning");
                                 }, 3000);
                             }
-                             {#setTimeout(function () {#}
-                             {#    window.location.reload()#}
-                             {#   }, 5000);#}
+                             setTimeout(function () {
+                                 window.location.reload()
+                                }, 5000);
                         },
                     })
                 });
