@@ -1,3 +1,5 @@
+import time
+
 from flask import render_template, abort, make_response, jsonify, request, redirect, url_for
 from flask_login import login_required
 
@@ -14,7 +16,7 @@ from ..api.consumer import *
 @login_required
 @admin_required
 def dashboard():
-    amount_users = len(User.get_all())-1
+    amount_users = len(User.get_all()) - 1
     stadistics = [10, 4, 3, 7, 5, 10, 3, 4, 8, 10, 6, 8]
     return render_template("admin/index.html", amount_users=amount_users, stadistics=stadistics)
 
@@ -24,7 +26,7 @@ def dashboard():
 @admin_required
 def list_users():
     users = User.get_all()
-    return render_template("admin/users/table_score.html", users=users)
+    return render_template("admin/users/list_users.html", users=users)
 
 
 @admin_bp.route("/admin/user/delete/", methods=['DELETE'])
@@ -83,31 +85,49 @@ def list_moderation():
     return render_template("admin/moderation/moderation.html")
 
 
-
 @admin_bp.route("/admin/table_score")
 @login_required
 @admin_required
 def tables_scores():
-    santander_table = TableScore.get_by_league('liga_santander')
-    return render_template("admin/table_score/table_score.html", santander_table=santander_table)
+    santander_table = TableScore.get_by_league('laliga-santander')
+    premier_table = TableScore.get_by_league('premier-league')
+    return render_template("admin/table_score/table_score.html", santander_table=santander_table,
+                           premier_table=premier_table)
 
 
 # API Consumer
-@admin_bp.route("/admin/update_table_score", methods=['GET'])
+@admin_bp.route("/admin/update_table_score", methods=['PATCH'])
 @login_required
 @admin_required
 def update_table_score():
-    # country_code = request.values.get('country_code')
-    # league_code = request.values.get('league_code')
+    table_data_santander = get_table_by_league("spain", "laliga-santander")
+    time.sleep(3)
+    table_data_premier = get_table_by_league("england", "premier-league")
 
-    table_data = get_table_by_league('spain', 'laliga-santander')
-    if len(table_data) > 0:
-        response = make_response(jsonify({'status': 'success'}), 200)
-    #   save in DB table score
-        for row in table_data:
-            row_score = TableScore(row['won'], row['team_name'], row['lost'], row['points'], row['team_id'], row['rank'], row['games_played'])
-            row_score.save()
-    else:
-        response = make_response(jsonify({'status': 'error'}), 503)
+    response = make_response(jsonify({"santander": "success", "premier": "success", 'status': 'success'}), 200)
+    TableScore.delete_all()
+
+    saved_santander = save_table_score(table_data_santander, "laliga-santander")
+    saved_premier = save_table_score(table_data_premier, "premier-league")
+
+    if not saved_premier:
+        response = make_response(jsonify({"santander": "success", "premier": "fail", 'status': 'success'}), 200)
+
+    if not saved_santander:
+        response = make_response(jsonify({"santander": "fail", "premier": "success", 'status': 'success'}), 200)
 
     return response
+
+
+def save_table_score(data, league):
+    flag = True
+    if len(data) > 0:
+        #   save in DB table score
+        for row in data:
+            row_score = TableScore(row['won'], row['team_name'], row['lost'], row['points'], row['team_id'],
+                                   row['rank'], row['games_played'], league)
+            row_score.save()
+    else:
+        flag = False
+
+    return flag

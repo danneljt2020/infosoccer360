@@ -48,18 +48,16 @@
                                     <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#profile2"
                                                             role="tab"><span class="hidden-sm-up"><i
                                             class="ti-user"></i></span> <span
-                                            class="hidden-xs-down">Champions CUP</span></a>
+                                            class="hidden-xs-down">Liga Premier</span></a>
                                     </li>
                                 </ul>
                                 <!-- Tab panes -->
                                 <div class="tab-content">
                                     <div class="tab-pane active" id="home2" role="tabpanel">
-                                        <div class="p-20">
-                                            <h5>League</h5>
-                                        </div>
+                                        {% include 'table_score/table_liga_santander.html' %}
                                     </div>
-                                    <div class="tab-pane  p-20" id="profile2" role="tabpanel">
-                                        <h5>Champions</h5>
+                                    <div class="tab-pane" id="profile2" role="tabpanel">
+                                        {% include 'table_score/table_premier.html' %}
                                     </div>
                                 </div>
                             </div>
@@ -67,9 +65,11 @@
                     </div>
                 </div>
                 <!-- /# row -->
+                {% include 'common/footer.html' %}
             </div>
         </div>
     </div>
+
 
 {% endblock %}
 
@@ -83,7 +83,41 @@
     <script src="{{ url_for("static", filename="js/lib/sweetalert/sweetalert.min.js") }}"></script>
 
     <script>
+        $(".btn_upd_table_score").click(function (evt) {
+            let self = $(this)
+            let league = self.data('league');
+            let country = self.data('country');
 
+            swal({
+                    title: "Atención!",
+                    text: "Está seguro de actualizar la tabla de posiciones.",
+                    type: "info",
+                    showCancelButton: true,
+                    closeOnConfirm: false,
+                    showLoaderOnConfirm: true,
+                },
+                function () {
+                    $.ajax({
+                        method: 'PATCH',
+                        url: "{{ url_for('admin.update_table_score') }}",
+                        data: {'league_code': league, 'country_code': country},
+                        success: function (response) {
+                            if (response.status === "success") {
+                                setTimeout(function () {
+                                    swal("Excelente!!", "La tabla se posiciones se ha actualizado satisfactoriamente.", "success");
+                                }, 3000);
+                            }else{
+                                setTimeout(function () {
+                                    swal("Ohhh!", "Algo ha salido mal", "warning");
+                                }, 3000);
+                            }
+                             {#setTimeout(function () {#}
+                             {#    window.location.reload()#}
+                             {#   }, 5000);#}
+                        },
+                    })
+                });
+        });
     </script>
 {% endblock %}
 

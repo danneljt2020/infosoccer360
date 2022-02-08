@@ -16,7 +16,7 @@ class TableScore(db.Model):
     games_played = db.Column(db.String(60), nullable=True)
     league = db.Column(db.String(60), nullable=True)
 
-    def __init__(self, won, team_name, lost, points, team_id, rank, games_played):
+    def __init__(self, won, team_name, lost, points, team_id, rank, games_played, league):
         self.won = won
         self.team_name = team_name
         self.lost = lost
@@ -24,6 +24,7 @@ class TableScore(db.Model):
         self.team_id = team_id
         self.rank = rank
         self.games_played = games_played
+        self.league = league
 
     def save(self):
         if not self.id:
