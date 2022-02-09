@@ -57,11 +57,13 @@ class Comment(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='CASCADE'), nullable=False)
     match_id = db.Column(db.Integer, db.ForeignKey('match.id', ondelete='CASCADE'), nullable=False)
     content = db.Column(db.String(400), nullable=True)
-    created = db.Column(db.DateTime, default=datetime.utcnow)
     state = db.Column(db.Boolean, default=False)
     reply = db.Column(db.Boolean, default=False)
+    created = db.Column(db.DateTime, default=datetime.utcnow)
 
-    def __init__(self, content, ):
+    def __init__(self, user_id,match_id,content ):
+        self.user_id = user_id
+        self.match_id = match_id
         self.content = content
 
     def save(self):
@@ -100,11 +102,21 @@ class Match(db.Model):
     team_2_name = db.Column(db.String(80), nullable=True)
     team_1_score = db.Column(db.String(80), nullable=True)
     team_2_score = db.Column(db.String(80), nullable=True)
-    created = db.Column(db.DateTime, default=datetime.utcnow)
     start = db.Column(db.DateTime, default=datetime.utcnow)
+    created = db.Column(db.DateTime, default=datetime.utcnow)
 
-    def __init__(self):
-        pass
+    def __init__(self, league_id, match_id, round, status, team_1_id, team_2_id, team_1_name, team_2_name, start):
+        self.league_id = league_id
+        self.match_id = match_id
+        self.round = round
+        self.status = status
+        self.team_1_id = team_1_id
+        self.team_2_id = team_2_id
+        self.team_1_name = team_1_name
+        self.team_2_name = team_2_name
+        self.team_1_score = "0"
+        self.team_2_score = "0"
+        self.start = start
 
     def save(self):
         if not self.id:
@@ -123,6 +135,10 @@ class Match(db.Model):
     def get_all():
         return Match.query.all()
 
+    @staticmethod
+    def get_by_league_id(league_id):
+        return Match.query.filter_by(league_id=league_id).all()
+
 
 class Forecast(db.Model):
     __tablename__ = 'forecast'
@@ -135,8 +151,12 @@ class Forecast(db.Model):
     created = db.Column(db.DateTime, default=datetime.utcnow)
     note = db.Column(db.String(400), nullable=True)
 
-    def __init__(self, content, ):
-        self.content = content
+    def __init__(self, user_id, match_id, team_1_score, team_2_score, note):
+        self.user_id = user_id
+        self.match_id = match_id
+        self.team_1_score = team_1_score
+        self.team_2_score = team_2_score
+        self.note = note
 
     def save(self):
         if not self.id:
@@ -158,6 +178,3 @@ class Forecast(db.Model):
     @staticmethod
     def get_all():
         return Forecast.query.all()
-
-
-

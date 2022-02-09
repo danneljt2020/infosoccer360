@@ -5,6 +5,7 @@ from flask_login import login_required
 
 from . import admin_bp
 from .forms import UserAdminForm
+from .models import Match
 
 from ..auth.decorators import admin_required
 from ..auth.models import User
@@ -95,7 +96,7 @@ def tables_scores():
                            premier_table=premier_table)
 
 
-# API Consumer
+# API Consumer Update Table Score
 @admin_bp.route("/admin/update_table_score", methods=['PATCH'])
 @login_required
 @admin_required
@@ -119,6 +120,21 @@ def update_table_score():
     return response
 
 
+# API Consumer Update matches by league and round
+@admin_bp.route("/admin/update_match_by_league", methods=['PATCH'])
+@login_required
+@admin_required
+def update_match_by_league():
+    country_code = request.values.get('country_code')
+    round = request.values.get('round')
+    league_code = request.values.get('league_code')
+
+    matches = get_matches_by_league(country_code, league_code, round)
+    response = make_response(jsonify({'status': 'success'}), 200)
+
+    return response
+
+
 def save_table_score(data, league):
     flag = True
     if len(data) > 0:
@@ -127,6 +143,22 @@ def save_table_score(data, league):
             row_score = TableScore(row['won'], row['team_name'], row['lost'], row['points'], row['team_id'],
                                    row['rank'], row['games_played'], league)
             row_score.save()
+    else:
+        flag = False
+
+    return flag
+
+
+def save_matches(data, league_id):
+    flag = True
+    if len(data) > 0:
+        #   save in DB
+        for row in data:
+            row_match = Match(league_id, row['match_id'], row['round'], row['status'], row['team_1']['id'],
+                              row['team_2']['id'], row['team_1']['name'], row['team_2']['name'],
+                              row['time']['scheduled'])
+            row_match.save()
+    #         TODO como guardar la fecha de scheduled
     else:
         flag = False
 
