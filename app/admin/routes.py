@@ -96,6 +96,16 @@ def tables_scores():
                            premier_table=premier_table)
 
 
+@admin_bp.route("/admin/matches")
+@login_required
+@admin_required
+def list_matches():
+    santander_matches = Match.get_by_league_id('laliga-santander')
+    premier_matches = Match.get_by_league_id('premier-league')
+    return render_template("admin/match/list_match.html", santander=santander_matches,
+                           premier_table=premier_matches)
+
+
 # API Consumer Update Table Score
 @admin_bp.route("/admin/update_table_score", methods=['PATCH'])
 @login_required
@@ -120,7 +130,7 @@ def update_table_score():
     return response
 
 
-# API Consumer Update matches by league and round
+# API Consumer Update matches by league and round TODO agregar a una vista del admin
 @admin_bp.route("/admin/update_match_by_league", methods=['PATCH'])
 @login_required
 @admin_required
@@ -128,9 +138,13 @@ def update_match_by_league():
     country_code = request.values.get('country_code')
     round = request.values.get('round')
     league_code = request.values.get('league_code')
-
-    matches = get_matches_by_league(country_code, league_code, round)
     response = make_response(jsonify({'status': 'success'}), 200)
+
+    matches = get_matches_by_league("england", "premier-league", "38")
+    saved = save_matches(matches, "premier-league")
+
+    if not saved:
+        response = make_response(jsonify({'status': 'error'}), 503)
 
     return response
 
@@ -154,11 +168,11 @@ def save_matches(data, league_id):
     if len(data) > 0:
         #   save in DB
         for row in data:
+            date_str = str(row['time']['scheduled'])
+            game_date = datetime(year=int(date_str[0:4]), month=int(date_str[4:6]), day=int(date_str[6:8]))
             row_match = Match(league_id, row['match_id'], row['round'], row['status'], row['team_1']['id'],
-                              row['team_2']['id'], row['team_1']['name'], row['team_2']['name'],
-                              row['time']['scheduled'])
+                              row['team_2']['id'], row['team_1']['name'], row['team_2']['name'], game_date)
             row_match.save()
-    #         TODO como guardar la fecha de scheduled
     else:
         flag = False
 

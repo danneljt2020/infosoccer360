@@ -69,6 +69,10 @@
 ------------------*/
 /*   mis CSS
 ----------------------*/
+.table-margin{
+  margin: 15px 0;
+}
+
 .td-align-center {
   text-align: center;
 }
