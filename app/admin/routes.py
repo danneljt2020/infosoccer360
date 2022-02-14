@@ -5,7 +5,7 @@ from flask_login import login_required
 
 from . import admin_bp
 from .forms import UserAdminForm
-from .models import Match, Comment
+from .models import Match, Comment, Forecast
 
 from ..auth.decorators import admin_required
 from ..auth.models import User
@@ -77,6 +77,16 @@ def update_user_form(user_id):
         user.save()
         return redirect(url_for('admin.list_users'))
     return render_template("admin/users/update_form.html", form=form, user=user)
+
+
+@admin_bp.route("/admin/forecast")
+@login_required
+@admin_required
+def list_forecast():
+    forecast_santander = Forecast.get_by_league('laliga-santander')
+    forecast_premier = Forecast.get_by_league('premier-league')
+    return render_template("admin/forecast/table_forecast.html", santander=forecast_santander,
+                           premier=forecast_premier)
 
 
 @admin_bp.route("/admin/moderation")

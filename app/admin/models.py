@@ -108,6 +108,7 @@ class Match(db.Model):
     start = db.Column(db.DateTime, default=datetime.utcnow)
     created = db.Column(db.DateTime, default=datetime.utcnow)
     comment = db.relationship('Comment', backref='match', lazy=True, uselist=False)
+    forecast = db.relationship('Forecast', backref='match', lazy=True, uselist=False)
 
     def __init__(self, league_id, match_id, round, status, team_1_id, team_2_id, team_1_name, team_2_name, start):
         self.league_id = league_id
@@ -154,6 +155,7 @@ class Forecast(db.Model):
     team_2_score = db.Column(db.String(80), nullable=True)
     created = db.Column(db.DateTime, default=datetime.utcnow)
     note = db.Column(db.String(400), nullable=True)
+    league = db.Column(db.String(60), nullable=True)
 
     def __init__(self, user_id, match_id, team_1_score, team_2_score, note):
         self.user_id = user_id
@@ -178,6 +180,10 @@ class Forecast(db.Model):
     @staticmethod
     def get_by_user_id(user_id):
         return Forecast.query.filter_by(user_id=user_id).all()
+
+    @staticmethod
+    def get_by_league(league):
+        return Forecast.query.filter_by(league=league).all()
 
     @staticmethod
     def get_all():

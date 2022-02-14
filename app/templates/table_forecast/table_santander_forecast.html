@@ -1,0 +1,51 @@
+<div class="row ">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="row">
+                <h5 class="col-md-10">Pronósticos de la Liga
+                    Santander</h5>
+            </div>
+            <div class="bootstrap-data-table-panel">
+                <div class="table-responsive">
+                    <table id="data-table-santander_table"
+                           class="table-margin table table-striped table-bordered">
+                        <thead>
+                        <tr>
+                            <th style="width:15%; text-align: left">Usuario</th>
+                            <th style="width:15%; text-align: left">Correo</th>
+                            <th style="width: 8%">Ronda</th>
+                            <th style="width: 20%">Partido</th>
+                            <th style="width: 10%">Pronóstico</th>
+                            <th style="width: 10%">Resultado</th>
+                            <th style="width: 10%">Estado</th>
+                            <th style="width:15%; text-align: left">Fecha</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for row in santander %}
+                            <tr>
+                                <td style="text-align: left"><strong>{{ row.user.name }} {{ row.user.last }}</strong></td>
+                                <td>{{ row.user.email }}</td>
+                                <td>{{ row.match.round }}</td>
+                                <td>{{ row.match.team_1_name }} - {{ row.match.team_2_name }}</td>
+                                <td>{{ row.team_1_score }} - {{ row.team_2_score }}</td>
+                                <td>{{ row.match.team_1_score }} - {{ row.match.team_2_score }}</td>
+                                <td style="text-align: left">
+                               {% if row.match.status == "NS" %}
+                                   <span class="badge badge-info">Pendiente</span>
+                               {% elif row.match.status == "FT" %}
+                                   <span class="badge badge-success">Terminado</span>
+                               {% else %}
+                                   <span class="badge badge-warning">row.match.status</span>
+                               {% endif %}
+                                </td>
+                                <td style="text-align: left">{{ row.created.strftime('%Y-%m-%d') }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

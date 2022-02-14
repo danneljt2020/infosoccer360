@@ -18,6 +18,7 @@ class User(db.Model, UserMixin):
     is_moderator = db.Column(db.Boolean, default=False)
     state = db.Column(db.Boolean, default=True)
     comment = db.relationship('Comment', backref='user', lazy=True, uselist=False)
+    forecast = db.relationship('Forecast', backref='user', lazy=True, uselist=False)
 
     def __init__(self, name, email, last, phone):
         self.name = name
