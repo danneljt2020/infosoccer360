@@ -1,5 +1,6 @@
 from datetime import datetime
 from app import db
+from app.auth.models import User
 
 
 class TableScore(db.Model):
@@ -70,6 +71,9 @@ class Comment(db.Model):
         if not self.id:
             db.session.add(self)
         db.session.commit()
+
+    # def user(self):
+    #     return User.query.get(self.user_id)
 
     def delete(self):
         db.session.delete(self)

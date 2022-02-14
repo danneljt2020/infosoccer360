@@ -5,7 +5,7 @@ from flask_login import login_required
 
 from . import admin_bp
 from .forms import UserAdminForm
-from .models import Match
+from .models import Match, Comment
 
 from ..auth.decorators import admin_required
 from ..auth.models import User
@@ -83,7 +83,8 @@ def update_user_form(user_id):
 @login_required
 @admin_required
 def list_moderation():
-    return render_template("admin/moderation/moderation.html")
+    comments = Comment.get_all()
+    return render_template("admin/moderation/moderation.html", comments=comments)
 
 
 @admin_bp.route("/admin/table_score")
@@ -103,7 +104,7 @@ def list_matches():
     santander_matches = Match.get_by_league_id('laliga-santander')
     premier_matches = Match.get_by_league_id('premier-league')
     return render_template("admin/match/list_match.html", santander=santander_matches,
-                           premier_table=premier_matches)
+                           premier=premier_matches)
 
 
 # API Consumer Update Table Score
