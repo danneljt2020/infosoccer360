@@ -2,6 +2,7 @@
 
 {% block extra_css %}
     <link href="{{ url_for("static",filename = 'css/lib/data-table/buttons.bootstrap.min.css') }}" rel="stylesheet"/>
+    <link href="{{ url_for("static",filename = 'css/lib/sweetalert/sweetalert.css') }}" rel="stylesheet"/>
 {% endblock %}
 
 {% block content %}
@@ -35,7 +36,6 @@
                     </div>
                     <!-- /# column -->
                 </div>
-                {{ comments | length }}
                 <!-- /# row -->
                 <section id="main-content">
                     <div class="row">
@@ -59,7 +59,8 @@
                                             {% for comment in comments %}
                                                 <tr>
                                                     <td>{{ comment.user.name }}</td>
-                                                    <td>{{ comment.id }}</td>
+                                                    <td>{{ comment.match.team_1_name }}
+                                                        - {{ comment.match.team_2_name }}</td>
                                                     <td>{{ comment.content }}</td>
                                                     <td style="width: 10%">
                                                         <select class="select_state_comment input-sm form-control"
@@ -106,5 +107,65 @@
     <script src="{{ url_for("static", filename="js/lib/data-table/buttons.flash.min.js") }}"></script>
     <script src="{{ url_for("static", filename= "js/lib/data-table/buttons.html5.min.js") }}"></script>
     <script src="{{ url_for("static", filename="js/lib/data-table/datatables-init.js") }}"></script>
+        <script src="{{ url_for("static", filename="js/lib/sweetalert/sweetalert.min.js") }}"></script>
+
+    <script>
+    $(".btn_del_comment").click(function (evt) {
+            let self = $(this)
+            let id_comment = self.data('id');
+
+            swal({
+                    title: "Esta seguro de eliminar el comentario.",
+                    text: "",
+                    type: "info",
+                    showCancelButton: true,
+                    closeOnConfirm: false,
+                    showLoaderOnConfirm: true,
+                },
+                function () {
+                    $.ajax({
+                        method: 'DELETE',
+                        url: "{{ url_for('admin.delete_comment') }}",
+                        data: {'id_comment': id_comment},
+                        success: function () {
+                            setTimeout(function () {
+                                self.parents("tr").remove();
+                                swal("Eliminado!!", "El comentario ha sido eliminado satisfactoriamente.", "success");
+                            }, 1000);
+                        }
+                    })
+                });
+        });
+
+    $('.select_state_comment').on('change', function () {
+            let self = $(this)
+            let id_comment = self.data('id');
+            let val = this.value
+            swal({
+                    title: "Esta seguro de actualizar el estado del comentario.",
+                    text: "",
+                    type: "info",
+                    showCancelButton: true,
+                    closeOnConfirm: false,
+                    showLoaderOnConfirm: true,
+                },
+                function () {
+                    $.ajax({
+                        method: 'PATCH',
+                        url: "{{ url_for('admin.update_state_comment') }}",
+                        data: {'id_comment': id_comment, 'state': val},
+                        success: function () {
+                            setTimeout(function () {
+                                swal("Genial!!", "El estado ha sido actualizado satisfactoriamente.", "success");
+                            }, 1000);
+                        }
+                    })
+                });
+        });
+    </script>
+
+
 {% endblock %}
+
+
 

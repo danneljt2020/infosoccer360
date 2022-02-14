@@ -87,6 +87,35 @@ def list_moderation():
     return render_template("admin/moderation/moderation.html", comments=comments)
 
 
+@admin_bp.route("/admin/user/update_state_comment/", methods=['PATCH'])
+@login_required
+@admin_required
+def update_state_comment():
+    id_comment = request.values.get('id_comment')
+    state_comment = request.values.get('state')
+
+    comment = Comment.get_by_id(id_comment)
+
+    if comment is None:
+        return make_response(jsonify({'status': 'error'}), 404)
+    comment.state = True if state_comment == "1" else False
+    comment.save()
+
+    return make_response(jsonify({'status': 'success'}), 200)
+
+
+@admin_bp.route("/admin/comment/delete/", methods=['DELETE'])
+@login_required
+@admin_required
+def delete_comment():
+    id_comment = request.values.get('id_comment')
+    comment = Comment.get_by_id(id_comment)
+    if comment is None:
+        return make_response(jsonify({'status': 'error'}), 404)
+    comment.delete()
+    return make_response(jsonify({'status': 'success'}), 200)
+
+
 @admin_bp.route("/admin/table_score")
 @login_required
 @admin_required

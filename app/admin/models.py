@@ -1,6 +1,5 @@
 from datetime import datetime
 from app import db
-from app.auth.models import User
 
 
 class TableScore(db.Model):
@@ -108,6 +107,7 @@ class Match(db.Model):
     team_2_score = db.Column(db.String(80), nullable=True)
     start = db.Column(db.DateTime, default=datetime.utcnow)
     created = db.Column(db.DateTime, default=datetime.utcnow)
+    comment = db.relationship('Comment', backref='match', lazy=True, uselist=False)
 
     def __init__(self, league_id, match_id, round, status, team_1_id, team_2_id, team_1_name, team_2_name, start):
         self.league_id = league_id
