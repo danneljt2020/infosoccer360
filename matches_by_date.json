@@ -6,133 +6,133 @@
             "matches": [
                 {
                     "round": 24,
-                    "match_id": "475668",
+                    "match_id": "475683",
                     "status": "FT",
                     "team_2": {
                         "country": "Spain",
-                        "name": "Celta Vigo",
-                        "id": "4162"
+                        "name": "Valencia",
+                        "id": "4008"
                     },
-                    "last_update": 20220212120623,
+                    "last_update": 20220213131355,
                     "team_1": {
                         "country": "Spain",
-                        "name": "Cadiz",
-                        "id": "3434"
+                        "name": "Deportivo Alaves",
+                        "id": "4482"
                     },
                     "score": {
                         "full_time": {
-                            "team_1": "0",
-                            "team_2": "0"
+                            "team_1": "2",
+                            "team_2": "1"
                         },
                         "half_time": {
-                            "team_1": "0",
+                            "team_1": "1",
                             "team_2": "0"
                         }
                     },
                     "time": {
-                        "scheduled": 20220212130000,
-                        "finish": 20220212145410,
+                        "scheduled": 20220213130000,
+                        "finish": 20220213145952,
                         "timezone": "0.00",
-                        "start": 20220212130126
+                        "start": 20220213130306
                     },
                     "round_info": "24"
                 },
                 {
                     "round": 24,
-                    "match_id": "475672",
+                    "match_id": "475671",
                     "status": "FT",
                     "team_2": {
                         "country": "Spain",
-                        "name": "Real Madrid",
-                        "id": "4009"
+                        "name": "Real Betis",
+                        "id": "3352"
                     },
-                    "last_update": 20220212151657,
+                    "last_update": 20220213154153,
                     "team_1": {
                         "country": "Spain",
-                        "name": "Villarreal",
-                        "id": "3608"
+                        "name": "Levante",
+                        "id": "4164"
                     },
                     "score": {
                         "full_time": {
-                            "team_1": "0",
-                            "team_2": "0"
+                            "team_1": "2",
+                            "team_2": "4"
                         },
                         "half_time": {
-                            "team_1": "0",
-                            "team_2": "0"
-                        }
-                    },
-                    "time": {
-                        "scheduled": 20220212151500,
-                        "finish": 20220212171002,
-                        "timezone": "0.00",
-                        "start": 20220212151654
-                    },
-                    "round_info": "24"
-                },
-                {
-                    "round": 24,
-                    "match_id": "475674",
-                    "status": "FT",
-                    "team_2": {
-                        "country": "Spain",
-                        "name": "Osasuna",
-                        "id": "463"
-                    },
-                    "last_update": 20220212162513,
-                    "team_1": {
-                        "country": "Spain",
-                        "name": "Rayo Vallecano",
-                        "id": "4253"
-                    },
-                    "score": {
-                        "full_time": {
-                            "team_1": "0",
+                            "team_1": "1",
                             "team_2": "3"
+                        }
+                    },
+                    "time": {
+                        "scheduled": 20220213151500,
+                        "finish": 20220213170836,
+                        "timezone": "0.00",
+                        "start": 20220213151750
+                    },
+                    "round_info": "24"
+                },
+                {
+                    "round": 24,
+                    "match_id": "475675",
+                    "status": "FT",
+                    "team_2": {
+                        "country": "Spain",
+                        "name": "Granada",
+                        "id": "3640"
+                    },
+                    "last_update": 20220213164010,
+                    "team_1": {
+                        "country": "Spain",
+                        "name": "Real Sociedad",
+                        "id": "4169"
+                    },
+                    "score": {
+                        "full_time": {
+                            "team_1": "2",
+                            "team_2": "0"
                         },
                         "half_time": {
-                            "team_1": "0",
+                            "team_1": "1",
+                            "team_2": "0"
+                        }
+                    },
+                    "time": {
+                        "scheduled": 20220213173000,
+                        "finish": 20220213192418,
+                        "timezone": "0.00",
+                        "start": 20220213173056
+                    },
+                    "round_info": "24"
+                },
+                {
+                    "round": 24,
+                    "match_id": "475670",
+                    "status": "FT",
+                    "team_2": {
+                        "country": "Spain",
+                        "name": "Barcelona",
+                        "id": "2911"
+                    },
+                    "last_update": 20220213200319,
+                    "team_1": {
+                        "country": "Spain",
+                        "name": "Espanyol",
+                        "id": "12635"
+                    },
+                    "score": {
+                        "full_time": {
+                            "team_1": "2",
                             "team_2": "2"
-                        }
-                    },
-                    "time": {
-                        "scheduled": 20220212173000,
-                        "finish": 20220212192253,
-                        "timezone": "0.00",
-                        "start": 20220212173107
-                    },
-                    "round_info": "24"
-                },
-                {
-                    "round": 24,
-                    "match_id": "475678",
-                    "status": "FT",
-                    "team_2": {
-                        "country": "Spain",
-                        "name": "Getafe",
-                        "id": "3379"
-                    },
-                    "last_update": 20220212191036,
-                    "team_1": {
-                        "country": "Spain",
-                        "name": "Atletico Madrid",
-                        "id": "2912"
-                    },
-                    "score": {
-                        "full_time": {
-                            "team_1": "4",
-                            "team_2": "3"
                         },
                         "half_time": {
-                            "team_1": "3",
-                            "team_2": "3"
+                            "team_1": "1",
+                            "team_2": "1"
                         }
                     },
                     "time": {
-                        "scheduled": 20220212200000,
-                        "finish": 20220212220251,
+                        "scheduled": 20220213200000,
+                        "finish": 20220213215629,
                         "timezone": "0.00",
-                        "start": 20220212200233
+                        "start": 20220213200218
                     },
                     "round_info": "24"
                 }

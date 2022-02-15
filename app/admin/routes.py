@@ -189,6 +189,30 @@ def update_match_by_league():
     return response
 
 
+# API Consumer Update matches result by league and date TODO
+@admin_bp.route("/admin/update_match_by_league", methods=['GET'])
+@login_required
+@admin_required
+def update_match_result_by_league_date():
+    date = request.values.get('date')
+    league_code = request.values.get('league_code')
+
+    response = make_response(jsonify({'status': 'success'}), 200)
+
+    matches = get_matches_league_by_date("20220213", "laliga-santander")
+    # matches = get_matches_by_league(date,league_code)
+
+    for match in matches:
+        upd_match = Match.get_by_match_id(match['match_id'])
+        if upd_match:
+            upd_match.team_1_score = match['score']['full_time']['team_1']
+            upd_match.team_2_score = match['score']['full_time']['team_2']
+            upd_match.status = match['status']
+            upd_match.save()
+
+    return response
+
+
 def save_table_score(data, league):
     flag = True
     if len(data) > 0:

@@ -70,7 +70,6 @@
         </div>
     </div>
 
-
 {% endblock %}
 
 {% block extra_js %}
@@ -81,6 +80,31 @@
     <script src="{{ url_for("static", filename="js/lib/data-table/datatables-init.js") }}"></script>
 
     <script src="{{ url_for("static", filename="js/lib/sweetalert/sweetalert.min.js") }}"></script>
+
+    <script>
+    $(".btn_upd_matches_result").click(function (evt) {
+        let self = $(this)
+        let league = self.data('league');
+
+
+    })
+
+    let today = new Date();
+    let dd = today.getDate();
+    let mm = today.getMonth()+1;
+    let yyyy = today.getFullYear();
+     if(dd<10){
+            dd='0'+dd
+        }
+        if(mm<10){
+            mm='0'+mm
+        }
+    today = yyyy+'/'+mm+'/'+dd;
+    document.getElementById("santander_date").setAttribute("max", today);
+    document.getElementById("santander_date").setAttribute("value", today);
+    </script>
+
+
 
 {% endblock %}
 

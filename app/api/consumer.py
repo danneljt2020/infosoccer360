@@ -61,7 +61,17 @@ def get_matches_by_league(country_code, league_code, round):
     return matches
 
 
+# Get matches by date
+def get_matches_league_by_date(date, league_code):
+    querystring = {"date": date, "league_code": league_code}
+    try:
+        response = requests.request("GET", base_url + "matches-by-date", headers=headers, params=querystring)
+        matches = response.json()['data'][0]['matches']
+    except requests.exceptions.RequestException as e:
+        return {}
+    return matches
 
-# print(get_matches_by_league("spain", "laliga-santander", "25"))
-# write_data("matches_by_league.json", response.json())
+
+# response = get_matches_by_date("20220213", "laliga-santander")
+# write_data("matches_by_date.json", response.json())
 

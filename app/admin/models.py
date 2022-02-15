@@ -144,6 +144,10 @@ class Match(db.Model):
     def get_by_league_id(league_id):
         return Match.query.filter_by(league_id=league_id).all()
 
+    @staticmethod
+    def get_by_match_id(match_id):
+        return Match.query.filter_by(match_id=match_id).first()
+
 
 class Forecast(db.Model):
     __tablename__ = 'forecast'

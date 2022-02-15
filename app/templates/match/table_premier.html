@@ -4,10 +4,10 @@
             <div class="row">
                 <h5 class="col-md-10">Partidos de la Liga
                     Premier</h5>
-                {#                <button type="button" data-league="laliga-santander" data-country="spain"#}
-                {#                        class="btn_upd_table_score pull-right btn btn-primary btn-flat btn-addon m-b-10 m-l-5">#}
-                {#                    <i class="ti-reload"></i>Actualizar#}
-                {#                </button>#}
+                    <button type="button" data-league="premier-league" data-country="spain"
+                            class="btn_upd_matches_result pull-right btn btn-primary btn-flat btn-addon m-b-10 m-l-5">
+                        <i class="ti-reload"></i>Actualizar
+                    </button>
             </div>
             <div class="bootstrap-data-table-panel">
                 <div class="table-responsive">
@@ -31,7 +31,15 @@
                                 <td style="font-weight: bold">{{ row.team_1_name }} - {{ row.team_2_name }}</td>
                                 <td style="width: 10%">{{ row.team_1_score }}-{{ row.team_2_score }}</td>
                                 <td>{{ row.start.strftime('%Y-%m-%d') }}</td>
-                                <td>{{ row.status }}</td>
+                                <td>
+                                    {% if row.status == "NS" %}
+                                       <span class="badge badge-info">Pendiente</span>
+                                   {% elif row.status == "FT" %}
+                                       <span class="badge badge-success">Terminado</span>
+                                   {% else %}
+                                       <span class="badge badge-warning">{{ row.status }}</span>
+                                   {% endif %}
+                                </td>
                                 <td style="text-align: left">{{ row.created.strftime('%Y-%m-%d') }}</td>
                                 <td style="text-align: center; width: 10%">
                                     <a class="btn_upd_match_santander" style="cursor: pointer" data-id={{ row.match_id }}>
