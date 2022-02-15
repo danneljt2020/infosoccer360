@@ -73,7 +73,7 @@
                                                             </option>
                                                         </select>
                                                     </td>
-                                                    <td style="width: 10%">{{ comment.created }}</td>
+                                                    <td style="width: 10%">{{ comment.created.strftime('%Y-%m-%d') }}</td>
                                                     <td style="text-align: center">
                                                         <a class="btn_del_comment" style="cursor: pointer"
                                                            data-id={{ comment.id }}> <span

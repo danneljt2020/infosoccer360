@@ -30,9 +30,9 @@
                                 <td style="text-align: center"><strong>{{ row.round }}</strong></td>
                                 <td style="font-weight: bold">{{ row.team_1_name }} - {{ row.team_2_name }}</td>
                                 <td>{{ row.team_1_score }}-{{ row.team_2_score }}</td>
-                                <td>{{ row.start }}</td>
+                                <td style="width: 10%;">{{ row.start.strftime('%Y-%m-%d') }}</td>
                                 <td>{{ row.status }}</td>
-                                <td style="text-align: left">{{ row.created }}</td>
+                                <td style="text-align: left">{{ row.created.strftime('%Y-%m-%d') }}</td>
                                 <td style="text-align: left">
                                     <a class="btn_upd_match_santander" style="cursor: pointer" data-id={{ row.match_id }}>
                                         <span

@@ -33,7 +33,7 @@
                                 <td>{{ row.won }}</td>
                                 <td>{{ row.lost }}</td>
                                 <td>{{ row.games_played }}</td>
-                                <td style="text-align: left">{{ row.created }}</td>
+                                <td style="text-align: left">{{ row.created.strftime('%Y-%m-%d') }}</td>
                             </tr>
                         {% endfor %}
                         </tbody>
