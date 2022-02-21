@@ -1,4 +1,5 @@
 import time
+from datetime import datetime
 
 from flask import render_template, abort, make_response, jsonify, request, redirect, url_for
 from flask_login import login_required
@@ -146,7 +147,7 @@ def list_matches():
                            premier=premier_matches)
 
 
-# API Consumer Update Table Score
+# Update Table Score
 @admin_bp.route("/admin/update_table_score", methods=['PATCH'])
 @login_required
 @admin_required
@@ -170,7 +171,7 @@ def update_table_score():
     return response
 
 
-# API Consumer Update matches by league and round TODO agregar a una vista del admin
+# Update matches by league and round TODO agregar a una vista del admin
 @admin_bp.route("/admin/update_match_by_league", methods=['PATCH'])
 @login_required
 @admin_required
@@ -189,18 +190,17 @@ def update_match_by_league():
     return response
 
 
-# API Consumer Update matches result by league and date TODO
-@admin_bp.route("/admin/update_match_by_league", methods=['GET'])
+# Update matches result by league and date
+@admin_bp.route("/admin/update_match_by_league_date", methods=['PATCH'])
 @login_required
 @admin_required
-def update_match_result_by_league_date():
+def update_matches_result_by_league_date():
     date = request.values.get('date')
     league_code = request.values.get('league_code')
 
     response = make_response(jsonify({'status': 'success'}), 200)
 
-    matches = get_matches_league_by_date("20220213", "laliga-santander")
-    # matches = get_matches_by_league(date,league_code)
+    matches = get_matches_league_by_date(date, league_code)
 
     for match in matches:
         upd_match = Match.get_by_match_id(match['match_id'])
@@ -208,6 +208,28 @@ def update_match_result_by_league_date():
             upd_match.team_1_score = match['score']['full_time']['team_1']
             upd_match.team_2_score = match['score']['full_time']['team_2']
             upd_match.status = match['status']
+            upd_match.save()
+
+    return response
+
+
+# Get results match by id TODO validate respond
+@admin_bp.route("/admin/update_match_by_id", methods=['PATCH'])
+@login_required
+@admin_required
+def update_match_by_id():
+    match_id = request.values.get('match_id')
+
+    response = make_response(jsonify({'status': match_id}), 200)
+
+    match_detail = get_matches_by_id(match_id)
+
+    if match_detail:
+        upd_match = Match.get_by_match_id(match_id)
+        if upd_match:
+            upd_match.team_1_score = match_detail['team_1']['score']
+            upd_match.team_2_score = match_detail['team_2']['score']
+            upd_match.status = "FT"
             upd_match.save()
 
     return response

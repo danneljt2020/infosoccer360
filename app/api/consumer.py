@@ -1,5 +1,3 @@
-from datetime import datetime
-
 import requests
 
 import json
@@ -10,19 +8,6 @@ headers = {
 }
 
 base_url = "https://livescore-football.p.rapidapi.com/soccer/"
-
-
-# Future games OK
-# url = "https://livescore-football.p.rapidapi.com/soccer/matches-by-date"
-#
-# querystring = {"date": "20220212", "league_code": "laliga-santander", "country_code": "spain"}
-#
-# headers = {
-#     'x-rapidapi-host': "livescore-football.p.rapidapi.com",
-#     'x-rapidapi-key': "143ad21dc7mshde30eecc97d4ce3p1d03efjsn40a1fec30a14"
-# }
-#
-# response = requests.request("GET", url, headers=headers, params=querystring)
 
 
 # read the json file
@@ -67,6 +52,17 @@ def get_matches_league_by_date(date, league_code):
     try:
         response = requests.request("GET", base_url + "matches-by-date", headers=headers, params=querystring)
         matches = response.json()['data'][0]['matches']
+    except requests.exceptions.RequestException as e:
+        return {}
+    return matches
+
+
+# Get match by id
+def get_matches_by_id(match_id):
+    querystring = {"match_id": match_id}
+    try:
+        response = requests.request("GET", base_url + "match-statistics", headers=headers, params=querystring)
+        matches = response.json()['data']
     except requests.exceptions.RequestException as e:
         return {}
     return matches

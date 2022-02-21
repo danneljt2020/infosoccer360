@@ -8,8 +8,12 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <div class="input-group input-group-append">
-                            <input type="date" class="form-control" placeholder="Search Round">
-                            <span  id="santander_date" class="input-group-btn"><button class="btn btn-primary btn-group-right" type="submit"><i class="ti-search"></i></button></span>
+                            <input type="date" class="santander_date form-control" placeholder="Search Round">
+                            <span class="input-group-btn">
+                                <button data-league="laliga-santander"
+                                        class="btn_upd_matches_result btn btn-primary btn-group-right">
+                                    <i class="ti-search"></i>
+                                </button></span>
                         </div>
                     </div>
                 </div>
@@ -47,16 +51,16 @@
                                 </td>
                                 <td style="text-align: left">{{ row.created.strftime('%Y-%m-%d') }}</td>
                                 <td style="text-align: left">
-                                    <a class="btn_upd_match_santander" style="cursor: pointer"
-                                       data-id={{ row.match_id }}>
-                                        {% if not row.status == "FT" %}
+                                    {% if not row.status == "FT" %}
+                                        <a class="btn_upd_match" style="cursor: pointer" data-id={{ row.match_id }}
+                                            data-date={{ row.start.strftime('%Y-%m-%d') }}>
                                             <span class="badge badge-warning">
                                                 <i class="ti ti-download"></i>
                                             </span>
-                                        {% else %}
-                                            <span class="badge badge-success"><i class="ti ti-check-box"></i></span>
-                                        {% endif %}
-                                    </a>
+                                        </a>
+                                    {% else %}
+                                        <span class="badge badge-success"><i class="ti ti-check-box"></i></span>
+                                    {% endif %}
                                 </td>
                             </tr>
                         {% endfor %}

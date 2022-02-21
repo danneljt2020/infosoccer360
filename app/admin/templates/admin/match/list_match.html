@@ -82,29 +82,90 @@
     <script src="{{ url_for("static", filename="js/lib/sweetalert/sweetalert.min.js") }}"></script>
 
     <script>
-    $(".btn_upd_matches_result").click(function (evt) {
-        let self = $(this)
-        let league = self.data('league');
+        let today = new Date();
+        $(".btn_upd_matches_result").click(function (evt) {
+            let self = $(this)
+            let league = self.data('league');
+            let date_upd = $(".santander_date").val();
+
+            if (league === "premier-league") {
+                date_upd = $(".premier_date").val();
+            }
+            let str_date = date_upd.replace(/-/g, '');
+
+            swal({
+                    title: "Esta seguro de actualizar el estado de los partidos de " + league,
+                    text: "",
+                    type: "info",
+                    showCancelButton: true,
+                    closeOnConfirm: false,
+                    showLoaderOnConfirm: true,
+                },
+                function () {
+                    $.ajax({
+                        method: 'PATCH',
+                        url: "{{ url_for('admin.update_matches_result_by_league_date') }}",
+                        data: {'date': str_date, 'league_code': league},
+                        success: function () {
+                            setTimeout(function () {
+                                swal("Genial!!", "El estado de los partidos han sido actualizados satisfactoriamente.", "success");
+                            }, 1000);
+                            setTimeout(function () {
+                                window.location.reload()
+                            }, 5000);
+                        }
+                    })
+                });
+        });
+
+        $(".btn_upd_match").click(function (evt) {
+            let self = $(this)
+            let match_id = self.data('id');
+            let date_obj = self.data('date');
+
+            if(date_obj < today){
+                swal({
+                        title: "Esta seguro de actualizar el estado del partido",
+                        text: "",
+                        type: "info",
+                        showCancelButton: true,
+                        closeOnConfirm: false,
+                        showLoaderOnConfirm: true,
+                    },
+                    function () {
+                        $.ajax({
+                            method: 'PATCH',
+                            url: "{{ url_for('admin.update_match_by_id') }}",
+                            data: {'match_id': match_id},
+                            success: function () {
+                                setTimeout(function () {
+                                    swal("Genial!!", "El estado ha sido actualizados satisfactoriamente.", "success");
+                                }, 1000);
+                                setTimeout(function () {
+                                    window.location.reload()
+                                }, 4000);
+                            }
+                        })
+                    });
+            }else{
+                swal("Ups!!", "No puedes actualizar aun este partido, no se ha jugado.", "error");
+            }
+        });
 
 
-    })
-
-    let today = new Date();
-    let dd = today.getDate();
-    let mm = today.getMonth()+1;
-    let yyyy = today.getFullYear();
-     if(dd<10){
-            dd='0'+dd
+        let dd = today.getDate();
+        let mm = today.getMonth() + 1;
+        let yyyy = today.getFullYear();
+        if (dd < 10) {
+            dd = '0' + dd
         }
-        if(mm<10){
-            mm='0'+mm
+        if (mm < 10) {
+            mm = '0' + mm
         }
-    today = yyyy+'/'+mm+'/'+dd;
-    document.getElementById("santander_date").setAttribute("max", today);
-    document.getElementById("santander_date").setAttribute("value", today);
+        today = yyyy + '-' + mm + '-' + dd;
+        $('.santander_date').attr("max", today);
+        $('.santander_date').attr("value", today);
     </script>
-
-
 
 {% endblock %}
 
