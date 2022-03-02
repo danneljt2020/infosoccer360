@@ -40,7 +40,6 @@ def show_signup_form():
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
-
     if current_user.is_authenticated:
         return redirect(url_for('public.index'))
 

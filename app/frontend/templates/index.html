@@ -1,0 +1,307 @@
+{% extends 'base_frontend.html' %}
+
+{% block banner %}
+    <div class="tg-sliderbox">
+        <div class="tg-imglayer">
+            <img src="{{ url_for("static", filename="images/bg-pattran.png" ) }}" alt="image desctription">
+        </div>
+        <div id="tg-home-slider" class="tg-home-slider tg-haslayout">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <div class="container">
+                        <figure style="margin-top: 120px;" class="floating">
+                            <img src="{{ url_for("static", filename="images/slider/img-01.png" ) }}" alt="image description">
+                        </figure>
+                        <div class="tg-slider-content">
+                            <h1>vida&nbsp; y <span>&nbsp;&nbsp; pasión</span></h1>
+                            <div class="tg-btnbox">
+                                <h2>vivelo junto a nosotros</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="container">
+                        <figure style="margin-top: 120px;" class="floating">
+                            <img src="{{ url_for("static", filename="images/slider/img-02.png" ) }}" alt="image description">
+                        </figure>
+                        <div class="tg-slider-content">
+                            <h1>Marca &nbsp; &nbsp; &nbsp;<span>&nbsp;&nbsp;Gool</span></h1>
+                            <div class="tg-btnbox">
+                                <h2>El fútbol no es un juego, es magia </h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tg-btn-next">
+                <span>Siguente</span>
+                <span class="fa fa-angle-down"></span>
+            </div>
+            <div class="tg-btn-prev">
+                <span>Anterior</span>
+                <span class="fa fa-angle-down"></span>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block main %}
+    <main id="tg-main" class="tg-main tg-haslayout">
+        <!--************************************
+                About Us Start
+        *************************************-->
+        <section class="tg-main-section tg-haslayout">
+            <div class="container">
+                <div class="tg-section-name">
+                    <h2>Que es el fútbol</h2>
+                </div>
+                <div class="col-sm-11 col-xs-11 pull-right">
+                    <div class="row">
+                        <div class="tg-aboutussection">
+                            <div class="row">
+                                <div class="col-md-5 col-sm-12 col-xs-12">
+                                    <figure>
+                                        <img src="{{ url_for("static", filename="images/img-01.jpg" ) }}" alt="image description">
+                                    </figure>
+                                </div>
+                                <div class="col-md-7 col-sm-12 col-xs-12">
+                                    <div class="tg-contentbox">
+                                        <div class="tg-section-heading"><h2>Frases miticas sobre el deporte de las
+                                            multitudes</h2></div>
+                                        <div class="tg-description">
+                                            <p style="font-style: italic;color: #373542;font-size: 16px;">
+                                                "Los buenos jugadores de fútbol no necesitan ser titanes esculpidos por
+                                                Miguel Ángel.
+                                                En el fútbol, la capacidad es mucho más importante que la forma, y
+                                                muchos casos,
+                                                la habilidad es el arte de convertir las limitaciones en virtudes..."
+                                                <br>
+                                                <strong>Eduardo Galeano</strong>
+                                            </p>
+                                            <p style="font-style: italic;color: #373542;font-size: 16px;">
+                                                "No es la voluntad de ganar, sino la voluntad de prepararse para ganar
+                                                lo que marca la diferencia..."
+                                                <br>
+                                                <strong>Bear Bryant</strong>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--************************************
+                About Us End
+        *************************************-->
+        <!--************************************
+                Upcoming Match Start
+        *************************************-->
+        <section class=" tg-haslayout tg-bgstyleone">
+            <div class="tg-bgboxone"></div>
+            <div class="tg-bgboxtwo"></div>
+            <div class="tg-bgpattrant">
+                <div class="container">
+                    <div class="row">
+                        <div class="tg-upcomingmatch-counter">
+                            <div class="col-md-4 col-sm-4 col-xs-12 hidden-xs">
+                                <figure>
+                                    <img src="{{ url_for("static", filename="images/img-02.png" ) }}" alt="image description">
+                                </figure>
+                            </div>
+                            <div class="col-md-8 col-sm-8 col-xs-12">
+                                <div class="tg-contentbox">
+                                    <div class="tg-section-heading"><h2>Manchester United <span>VS</span> Chelsea</h2>
+                                    </div>
+                                    <div class="tg-description">
+                                        <h5 style="color: whitesmoke">El juego más esperado de la Liga Premier ya esta
+                                            en calendario
+                                            para que lo puedan disfrutar, realicen su pronósticos y sean parte del
+                                            partido.
+                                        </h5>
+                                    </div>
+                                    <div class="tg-counters">
+                                        <div class="tg-counter tg-days"></div>
+                                        <div class="tg-counter tg-hours"></div>
+                                        <div class="tg-counter tg-minutes"></div>
+                                        <div class="tg-counter tg-seconds"></div>
+                                    </div>
+                                    <div class="tg-btnbox">
+                                        <a class="tg-btn" href="{{ url_for('frontend.match_detail',match_id=123) }}"><span>Ver detalles</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--************************************
+                Upcoming Match End
+        *************************************-->
+        <!--************************************
+                Latest Result Start
+        *************************************-->
+        <section class="tg-main-section tg-haslayout">
+            <div class="container">
+                <div class="tg-section-name">
+                    <h2>Partidos con más pronósticos</h2>
+                </div>
+                <div class="col-sm-11 col-xs-11 pull-right">
+                    <div class="row">
+                        <div class="tg-latestresult">
+                            <div class="row">
+                                <div class="col-md-7 col-sm-12 col-xs-12">
+                                    <div class="tab-content tg-tabscontent">
+                                        <div role="tabpanel" class="tab-pane active" id="123">
+                                            <div class="tg-matchresult">
+                                                <div class="tg-box">
+                                                    <div class="tg-score"><h3>3 - 3</h3></div>
+                                                    <div class="tg-teamscore">
+                                                        <strong class="tg-team-logo">
+                                                            <a href="#">
+                                                                <img src="{{ url_for("static", filename="images/team-logo/logo-01.png" ) }}"
+                                                                     alt="image description">
+                                                            </a>
+                                                        </strong>
+                                                        <div class="tg-team-nameplusstatus">
+                                                            <h4><a href="#">Gladiators ( Win )</a></h4>
+                                                        </div>
+                                                        <ul class="tg-playernameplusgoadtime">
+                                                            <li>Roman Fenley (1-5)</li>
+                                                            <li>Connie Harland (4-8)</li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="tg-teamscore">
+                                                        <strong class="tg-team-logo">
+                                                            <a href="#">
+                                                                <img src="{{ url_for("static", filename="images/team-logo/logo-02.png" ) }}"
+                                                                     alt="image description">
+                                                            </a>
+                                                        </strong>
+                                                        <div class="tg-team-nameplusstatus">
+                                                            <h4><a href="#">horned grogs ( lose )</a></h4>
+                                                        </div>
+                                                        <ul class="tg-playernameplusgoadtime">
+                                                            <li>Ethan Ryberg (2-1)</li>
+                                                            <li>Maynard Brabant (4-1)</li>
+                                                        </ul>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div style="text-align: center; margin-top: 10px;" class="tg-btnbox">
+                                                <a class="tg-btn" href="#"><span>Hacer Pronóstico</span></a>
+                                            </div>
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane" id="456">
+                                            <div class="tg-matchresult">
+                                                <div class="tg-box">
+                                                    <div class="tg-score"><h3>7 - 3</h3></div>
+                                                    <div class="tg-teamscore">
+                                                        <strong class="tg-team-logo">
+                                                            <a href="#">
+                                                                <img src="{{ url_for("static", filename="images/team-logo/logo-01.png" ) }}"
+                                                                     alt="image description">
+                                                            </a>
+                                                        </strong>
+                                                        <div class="tg-team-nameplusstatus">
+                                                            <h4><a href="#">Gladiators ( Win )</a></h4>
+                                                        </div>
+                                                        <ul class="tg-playernameplusgoadtime">
+                                                            <li>Roman Fenley (15)</li>
+                                                            <li>Miguel Beckel (19)</li>
+                                                            <li>Jonah Jolicoeur (39)</li>
+                                                            <li>Connie Harland (48)</li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="tg-teamscore">
+                                                        <strong class="tg-team-logo">
+                                                            <a href="#">
+                                                                <img src="{{ url_for("static", filename="images/team-logo/logo-02.png" ) }}"
+                                                                     alt="image description">
+                                                            </a>
+                                                        </strong>
+                                                        <div class="tg-team-nameplusstatus">
+                                                            <h4><a href="#">horned grogs ( lose )</a></h4>
+                                                        </div>
+                                                        <ul class="tg-playernameplusgoadtime">
+                                                            <li>Ethan Ryberg (22)</li>
+                                                            <li>Wilbert Delbosquel (27)</li>
+                                                            <li>Maynard Brabant (42)</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-5 col-sm-12 col-xs-12">
+                                    <div id="tg-matchscrollbar" class="tg-matchscrollbar tg-allmatchstatus">
+                                        <ul class="tg-matchtabnav" role="tablist">
+                                            <li role="presentation" class="active">
+                                                <a href="#123" aria-controls="one" role="tab" data-toggle="tab">
+                                                    <div class="tg-match">
+                                                        <div class="tg-box">
+                                                            <strong class="tg-teamlogo">
+                                                                <img src="{{ url_for("static", filename="images/team-logo/logo-s-01.png" ) }}"
+                                                                     alt="image description">
+                                                            </strong>
+                                                            <h4>win</h4>
+                                                        </div>
+                                                        <div class="tg-box">
+                                                            <h3>16 - 4</h3>
+                                                        </div>
+                                                        <div class="tg-box">
+                                                            <strong class="tg-teamlogo">
+                                                                <img src="{{ url_for("static", filename="images/team-logo/logo-s-01.png" ) }}"
+                                                                     alt="image description">
+                                                            </strong>
+                                                            <h4>lose</h4>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li role="presentation">
+                                                <a href="#456" aria-controls="two" role="tab" data-toggle="tab">
+                                                    <div class="tg-match">
+                                                        <div class="tg-box">
+                                                            <strong class="tg-teamlogo">
+                                                                <img src="{{ url_for("static", filename="images/team-logo/logo-s-01.png" ) }}"
+                                                                     alt="image description">
+                                                            </strong>
+                                                            <h4>win</h4>
+                                                        </div>
+                                                        <div class="tg-box">
+                                                            <h3>6 - 4</h3>
+                                                        </div>
+                                                        <div class="tg-box">
+                                                            <strong class="tg-teamlogo">
+                                                                <img src="{{ url_for("static", filename="images/team-logo/logo-s-01.png" ) }}"
+                                                                     alt="image description">
+                                                            </strong>
+                                                            <h4>lose</h4>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--************************************
+                Latest Result End
+        *************************************-->
+    </main>
+{% endblock %}
+

@@ -1,0 +1,86 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Info Soccer 360</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="{{ url_for("static", filename="images/football_40637.png") }}">
+    <link rel="stylesheet" href="{{ url_for("static", filename="css/bootstrap.min.css") }}">
+    <link rel="stylesheet" href="{{ url_for("static", filename="css/normalize.css") }}">
+    <link rel="stylesheet" href="{{ url_for("static", filename="css/font-awesome.min.css") }}">
+    <link rel="stylesheet" href="{{ url_for("static", filename="css/transitions.css") }}">
+    <link rel="stylesheet" href="{{ url_for("static", filename="css/prettyPhoto.css") }}">
+    <link rel="stylesheet" href="{{ url_for("static", filename="css/swiper.min.css") }}">
+    <link rel="stylesheet" href="{{ url_for("static", filename="css/jquery-ui.css") }}">
+    <link rel="stylesheet" href="{{ url_for("static", filename="css/animate.css") }}">
+    <link rel="stylesheet" href="{{ url_for("static", filename="css/customScrollbar.css") }}">
+    <link rel="stylesheet" href="{{ url_for("static", filename="css/icomoon.css") }}">
+    <link rel="stylesheet" href="{{ url_for("static", filename="css/main.css") }}">
+    <link rel="stylesheet" href="{{ url_for("static", filename="css/color.css") }}">
+    <link rel="stylesheet" href="{{ url_for("static", filename="css/responsive.css") }}">
+    <script src="{{ url_for("static", filename="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js") }}"></script>
+</head>
+<body>
+
+
+<!--************************************
+        Wrapper Start
+*************************************-->
+<div id="tg-wrapper" class="tg-wrapper tg-haslayout">
+    <!--************************************
+            Mobile Menu Start
+    *************************************-->
+    {% include "frontend/mobil_menu.html" %}
+    <!--************************************
+            Mobile Menu End
+    *************************************-->
+    <!--************************************
+            Header Start
+    *************************************-->
+    {% include "frontend/header.html" %}
+    <!--************************************
+            Header End
+    *************************************-->
+    <!--************************************
+            Home Slider Start
+    *************************************-->
+    {% block banner %}{% endblock %}
+    <!--************************************
+            Home Slider End
+    *************************************-->
+    <!--************************************
+            Main Start
+    *************************************-->
+    {% block main %}{% endblock %}
+    <!--************************************
+            Main End
+    *************************************-->
+    <!--************************************
+            Footer Start
+    *************************************-->
+    {% include "frontend/footer.html" %}
+    <!--************************************
+            Footer End
+    *************************************-->
+</div>
+<!--************************************
+        Wrapper End
+*************************************-->
+
+
+<script src="{{ url_for("static", filename="js/vendor/jquery-library.js") }}"></script>
+<script src="{{ url_for("static", filename="js/vendor/bootstrap.min.js") }}"></script>
+<script src="{{ url_for("static", filename="js/customScrollbar.min.js") }}"></script>
+<script src="{{ url_for("static", filename="js/isotope.pkgd.js") }}"></script>
+<script src="{{ url_for("static", filename="js/prettyPhoto.js") }}"></script>
+<script src="{{ url_for("static", filename="js/swiper.min.js") }}"></script>
+<script src="{{ url_for("static", filename="js/jquery-ui.js") }}"></script>
+<script src="{{ url_for("static", filename="js/countTo.js") }}"></script>
+<script src="{{ url_for("static", filename="js/appear.js") }}"></script>
+<script src="{{ url_for("static", filename="js/main.js") }}"></script>
+</body>
+</html>
+

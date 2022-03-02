@@ -1,0 +1,158 @@
+{% extends 'base_frontend.html' %}
+
+{% block banner %}
+    <div class="tg-banner tg-haslayout">
+        <div class="tg-imglayer">
+            <img src="{{ url_for("static", filename="images/bg-pattran.png") }}" alt="image desctription">
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="tg-banner-content tg-haslayout">
+                    <div class="tg-pagetitle">
+                        <h1>Detalles del Partido</h1>
+                    </div>
+                    <ol class="tg-breadcrumb">
+                        <li><a href="{{ url_for("frontend.index") }}">Inicio</a></li>
+                        <li class="active">Detalles del Partido</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block main %}
+    <main id="tg-main" class="tg-main tg-haslayout">
+        <div class="tg-main-section tg-haslayout">
+            <div class="container">
+                <div class="row">
+                    <div id="tg-twocolumns" class="tg-twocolumns tg-haslayout">
+                        <div class="col-md-9 col-sm-8 col-xs-12 pull-left">
+                            <div class="tg-resultdetail">
+                                <div class="tg-matchresult">
+                                    <div class="tg-box">
+                                        <div class="tg-score"><h3>4 - 3</h3></div>
+                                        <div class="tg-teamscore" style="min-height: 350px!important;">
+                                            <strong class="tg-team-logo">
+                                                <a href="#">
+                                                    <img src="{{ url_for("static", filename="images/team-logo/logo-01.png") }}" alt="image description">
+                                                </a>
+                                            </strong>
+                                            <div class="tg-team-nameplusstatus">
+                                                <h4><a href="#">Real Madrid ( Win )</a></h4>
+                                            </div>
+                                            <ul class="tg-playernameplusgoadtime">
+                                                <li>Getafe (15)</li>
+                                            </ul>
+                                        </div>
+                                        <div class="tg-teamscore" style="min-height: 350px!important;">
+                                            <strong class="tg-team-logo">
+                                                <a href="#">
+                                                    <img src="{{ url_for("static", filename="images/team-logo/logo-01.png") }}" alt="image description">
+                                                </a>
+                                            </strong>
+                                            <div class="tg-team-nameplusstatus">
+                                                <h4><a href="#">horned grogs ( lose )</a></h4>
+                                            </div>
+                                            <ul class="tg-playernameplusgoadtime">
+                                                <li>Ethan Ryberg (22)</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="tg-comments" class="tg-comments">
+                                    <div class="tg-section-heading">
+                                        <h2>Comentarios</h2>
+                                    </div>
+                                    <ul style="height: 300px;overflow-y: scroll;">
+                                        <li>
+                                            <div class="tg-comment">
+                                                <figure style="width: 20%">
+                                                    <a href="#">
+                                                        <img src="{{ url_for("static", filename="images/thumbnails/img-08.jpg") }}" alt="image description">
+                                                    </a>
+                                                </figure>
+                                                <div class="tg-commentdata">
+                                                    <span class="tg-theme-tag"><time
+                                                            datetime="2016-05-03">May 3, 2016</time></span>
+                                                    <h5 style="position: relative; bottom: 3px;left: 8px;">Will
+                                                        Mccaulley</h5>
+                                                    <div class="tg-description">
+                                                        <p>Consectetur adipisicing elit, sed do eiusmod tempor
+                                                            incididunt ut labore etire magna aliqua. Ut enim ad minim
+                                                            veniam.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="tg-comment">
+                                                <figure style="width: 20%">
+                                                    <a href="#">
+                                                        <img src="{{ url_for("static", filename="images/thumbnails/img-08.jpg") }}" alt="image description">
+                                                    </a>
+                                                </figure>
+                                                <div class="tg-commentdata">
+                                                    <span class="tg-theme-tag"><time
+                                                            datetime="2016-05-03">May 3, 2016</time></span>
+                                                    <h5 style="position: relative; bottom: 3px;left: 8px;">Will
+                                                        Mccaulley</h5>
+                                                    <div class="tg-description">
+                                                        <p>Consectetur adipisicing elit, sed do eiusmod tempor
+                                                            incididunt ut labore etire magna aliqua. Ut enim ad minim
+                                                            veniam.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div id="tg-leavecomment" class="tg-leavecomment">
+                                    <div class="tg-section-heading">
+                                        <h2>Dejanos tu impresión sobre el partido!</h2>
+                                    </div>
+                                    <form id="tg-commentform" class="tg-commentform" method="post" action="#"
+                                          enctype="text/plain">
+                                        <fieldset>
+                                            <div class="form-group">
+                                                <textarea name="message" placeholder="Mensaje*" required></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <button class="tg-btn" type="submit">Enviar</button>
+                                            </div>
+                                        </fieldset>
+                                    </form>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-4 col-xs-12">
+                            <aside id="tg-sidebar" class="tg-sidebar">
+                                <div class="tg-widget tg-catagories-widget">
+                                    <h3>Últimos Pronósticos</h3>
+                                    <ul style="height: 300px;overflow-y: scroll;">
+                                        <li>
+                                            <a><em>Juan Perez</em><i>3-1</i></a>
+                                        </li>
+                                        <li>
+                                            <a><em>Pepe antonio</em><i>6-3</i></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="form-group">
+                                    <a class="tg-btn" href="javascript().html" data-toggle="modal"
+                                       data-target="#modal-pronostico-detail">Pronosticar</a>
+                                </div>
+                            </aside>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!--MODAL-->
+   {% include "modal.html" %}
+{% endblock %}
+

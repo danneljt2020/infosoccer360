@@ -31,6 +31,9 @@ def create_app():
     from .admin import admin_bp
     app.register_blueprint(admin_bp)
 
+    from .frontend import frontend_bp
+    app.register_blueprint(frontend_bp)
+
     from .public import public_bp
     app.register_blueprint(public_bp)
 
