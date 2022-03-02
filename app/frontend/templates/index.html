@@ -146,7 +146,7 @@
         <!--************************************
                 Latest Result Start
         *************************************-->
-        <section class="tg-main-section tg-haslayout">
+        <section style="padding-bottom:0;" class="tg-main-section tg-haslayout">
             <div class="container">
                 <div class="tg-section-name">
                     <h2>Partidos con más pronósticos</h2>
@@ -164,33 +164,24 @@
                                                     <div class="tg-teamscore">
                                                         <strong class="tg-team-logo">
                                                             <a href="#">
-                                                                <img src="{{ url_for("static", filename="images/team-logo/logo-01.png" ) }}"
+                                                                <img src="{{ url_for("static", filename="images/flag/500.png" ) }}"
                                                                      alt="image description">
                                                             </a>
                                                         </strong>
                                                         <div class="tg-team-nameplusstatus">
                                                             <h4><a href="#">Gladiators ( Win )</a></h4>
                                                         </div>
-                                                        <ul class="tg-playernameplusgoadtime">
-                                                            <li>Roman Fenley (1-5)</li>
-                                                            <li>Connie Harland (4-8)</li>
-                                                        </ul>
                                                     </div>
                                                     <div class="tg-teamscore">
                                                         <strong class="tg-team-logo">
                                                             <a href="#">
-                                                                <img src="{{ url_for("static", filename="images/team-logo/logo-02.png" ) }}"
+                                                                <img src="{{ url_for("static", filename="images/flag/500.png") }}"
                                                                      alt="image description">
                                                             </a>
                                                         </strong>
                                                         <div class="tg-team-nameplusstatus">
                                                             <h4><a href="#">horned grogs ( lose )</a></h4>
                                                         </div>
-                                                        <ul class="tg-playernameplusgoadtime">
-                                                            <li>Ethan Ryberg (2-1)</li>
-                                                            <li>Maynard Brabant (4-1)</li>
-                                                        </ul>
-
                                                     </div>
                                                 </div>
                                             </div>
@@ -213,12 +204,6 @@
                                                         <div class="tg-team-nameplusstatus">
                                                             <h4><a href="#">Gladiators ( Win )</a></h4>
                                                         </div>
-                                                        <ul class="tg-playernameplusgoadtime">
-                                                            <li>Roman Fenley (15)</li>
-                                                            <li>Miguel Beckel (19)</li>
-                                                            <li>Jonah Jolicoeur (39)</li>
-                                                            <li>Connie Harland (48)</li>
-                                                        </ul>
                                                     </div>
                                                     <div class="tg-teamscore">
                                                         <strong class="tg-team-logo">
@@ -230,11 +215,35 @@
                                                         <div class="tg-team-nameplusstatus">
                                                             <h4><a href="#">horned grogs ( lose )</a></h4>
                                                         </div>
-                                                        <ul class="tg-playernameplusgoadtime">
-                                                            <li>Ethan Ryberg (22)</li>
-                                                            <li>Wilbert Delbosquel (27)</li>
-                                                            <li>Maynard Brabant (42)</li>
-                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane" id="789">
+                                            <div class="tg-matchresult">
+                                                <div class="tg-box">
+                                                    <div class="tg-score"><h3>16 - 41</h3></div>
+                                                    <div class="tg-teamscore">
+                                                        <strong class="tg-team-logo">
+                                                            <a href="#">
+                                                                <img src="{{ url_for("static", filename="images/team-logo/logo-01.png" ) }}"
+                                                                     alt="image description">
+                                                            </a>
+                                                        </strong>
+                                                        <div class="tg-team-nameplusstatus">
+                                                            <h4><a href="#">Gladiators ( Win )</a></h4>
+                                                        </div>
+                                                    </div>
+                                                    <div class="tg-teamscore">
+                                                        <strong class="tg-team-logo">
+                                                            <a href="#">
+                                                                <img src="{{ url_for("static", filename="images/team-logo/logo-02.png" ) }}"
+                                                                     alt="image description">
+                                                            </a>
+                                                        </strong>
+                                                        <div class="tg-team-nameplusstatus">
+                                                            <h4><a href="#">horned grogs ( lose )</a></h4>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -279,6 +288,29 @@
                                                         </div>
                                                         <div class="tg-box">
                                                             <h3>6 - 4</h3>
+                                                        </div>
+                                                        <div class="tg-box">
+                                                            <strong class="tg-teamlogo">
+                                                                <img src="{{ url_for("static", filename="images/team-logo/logo-s-01.png" ) }}"
+                                                                     alt="image description">
+                                                            </strong>
+                                                            <h4>lose</h4>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li role="presentation">
+                                                <a href="#789" aria-controls="two" role="tab" data-toggle="tab">
+                                                    <div class="tg-match">
+                                                        <div class="tg-box">
+                                                            <strong class="tg-teamlogo">
+                                                                <img src="{{ url_for("static", filename="images/team-logo/logo-s-01.png" ) }}"
+                                                                     alt="image description">
+                                                            </strong>
+                                                            <h4>win</h4>
+                                                        </div>
+                                                        <div class="tg-box">
+                                                            <h3>16 - 41</h3>
                                                         </div>
                                                         <div class="tg-box">
                                                             <strong class="tg-teamlogo">

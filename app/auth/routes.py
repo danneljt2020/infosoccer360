@@ -57,7 +57,7 @@ def login():
                 if user.is_admin or user.is_moderator:
                     next_page = url_for('admin.dashboard')
                 else:
-                    next_page = url_for('public.index')
+                    next_page = url_for('frontend.index')
             return redirect(next_page)
 
     return render_template('auth/login.html', form=form, found=False)

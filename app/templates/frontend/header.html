@@ -14,11 +14,18 @@
                              class="tg-addnavigationm-mobile collapse navbar-collapse">
                             <div class="tg-colhalf pull-right">
                                 <nav style="float: right;" class="tg-addnav">
-                                    <ul>
-                                        <li><a href="{{ url_for("auth.login") }}">Acceso</a>
-                                        </li>
-                                        <li><a href="{{ url_for("auth.show_signup_form") }}">Registro</a></li>
-                                    </ul>
+                                    {% if current_user.is_authenticated %}
+                                        <ul>
+                                            <li><span style="color: whitesmoke">{{ current_user.name }}!</span>  </li>
+                                            <li><a href="{{ url_for("auth.logout") }}">Salir</a></li>
+                                        </ul>
+                                    {% else %}
+                                        <ul>
+                                            <li><a href="{{ url_for("auth.login") }}">Acceso</a>
+                                            </li>
+                                            <li><a href="{{ url_for("auth.show_signup_form") }}">Registro</a></li>
+                                        </ul>
+                                    {% endif %}
                                 </nav>
                             </div>
                         </div>
@@ -31,7 +38,8 @@
                             <i class="fa fa-bars"></i>
                         </button>
                         <strong class="tg-logo">
-                            <a href=""><img src="{{ url_for("static", filename="images/logo.png" ) }}" alt="image description"></a>
+                            <a href=""><img src="{{ url_for("static", filename="images/logo.png" ) }}"
+                                            alt="image description"></a>
                         </strong>
                     </div>
                     <div id="tg-navigation" class="tg-navigation">
