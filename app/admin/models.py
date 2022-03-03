@@ -1,4 +1,7 @@
 from datetime import datetime
+
+from sqlalchemy import func, desc
+
 from app import db
 
 
@@ -192,3 +195,13 @@ class Forecast(db.Model):
     @staticmethod
     def get_all():
         return Forecast.query.all()
+
+    @staticmethod
+    def get_more_match():
+        user_counts = db.session.query(
+            Forecast.match_id,
+            func.count(Forecast.match_id).label("total_counts")
+        ).group_by(
+            Forecast.match_id
+        ).order_by(desc(func.count(Forecast.match_id)))
+        return user_counts.all()

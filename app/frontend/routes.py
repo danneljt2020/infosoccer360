@@ -1,9 +1,11 @@
 from flask import render_template
 from . import frontend_bp
+from ..admin.models import Forecast
 
 
 @frontend_bp.route("/")
 def index():
+    print(Forecast.get_more_match())
     return render_template("index.html", methods=['GET'])
 
 
@@ -20,3 +22,5 @@ def league_premier():
 @frontend_bp.route("/match/<int:match_id>/", methods=['GET'])
 def match_detail(match_id):
     return render_template("match_detail.html")
+
+
