@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from sqlalchemy import func, desc
+from sqlalchemy import func, desc, select
 
 from app import db
 
@@ -64,7 +64,7 @@ class Comment(db.Model):
     reply = db.Column(db.Boolean, default=False)
     created = db.Column(db.DateTime, default=datetime.utcnow)
 
-    def __init__(self, user_id,match_id,content ):
+    def __init__(self, user_id, match_id, content):
         self.user_id = user_id
         self.match_id = match_id
         self.content = content
@@ -150,6 +150,10 @@ class Match(db.Model):
     @staticmethod
     def get_by_match_id(match_id):
         return Match.query.filter_by(match_id=match_id).first()
+
+    @staticmethod
+    def get_by_array_id(array_id):
+        return db.session.query(Match).filter(Match.status == "NS", Match.id.in_(array_id)).limit(5).all()
 
 
 class Forecast(db.Model):
