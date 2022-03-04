@@ -164,7 +164,7 @@
                                     <div class="tab-content tg-tabscontent">
                                         {% for match in top_forecast %}
                                             <div role="tabpanel" class="tab-pane {{ 'active' if loop.index == 1 }}"
-                                                 id="{{ match.id }}">
+                                                 id="{{ match.match_id }}">
                                                 <div class="tg-matchresult">
                                                     <div class="tg-box">
                                                         <div class="tg-score">
@@ -201,7 +201,8 @@
                                                     </div>
                                                 </div>
                                                 <br>
-                                                <div style="text-align: center; margin-top: 10px;" class="tg-btnbox">
+                                                <br>
+                                                <div style="text-align: center; margin-top: 40px;" class="tg-btnbox">
                                                     <a class="tg-btn"
                                                        href="{{ url_for('frontend.match_detail' ,match_id=match.match_id) }}"><span>Hacer Pronóstico</span></a>
                                                 </div>
@@ -214,7 +215,7 @@
                                         <ul class="tg-matchtabnav" role="tablist">
                                             {% for match in top_forecast %}
                                                 <li role="presentation" class="{{ 'active' if loop.index == 1 }}">
-                                                    <a href="#{{ match.id }}" aria-controls="one" role="tab"
+                                                    <a href="#{{ match.match_id }}" aria-controls="one" role="tab"
                                                        data-toggle="tab">
                                                         <div class="tg-match">
                                                             <div class="tg-box">

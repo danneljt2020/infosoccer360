@@ -25,4 +25,5 @@ def league_premier():
 
 @frontend_bp.route("/match/<int:match_id>/", methods=['GET'])
 def match_detail(match_id):
-    return render_template("match_detail.html")
+    match = Match.get_by_id(match_id)
+    return render_template("match_detail.html", match=match)
