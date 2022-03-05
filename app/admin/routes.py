@@ -23,7 +23,7 @@ def dashboard():
     active_games = len(Match.get_active_games())
     comments = len(Comment.get_all())
     user_forecast = get_top_forecast_user(Forecast.get_more_user())
-    stadistics = [10, 4, 3, 7, 5, 10, 3, 4, 8, 10, 6, 8]
+    stadistics = get_forecast_by_month(Forecast.get_count_by_month())
     return render_template("admin/index.html", amount_users=amount_users, stadistics=stadistics,
                            forecast=forecast, active_games=active_games, comments=comments,
                            user_forecast=list(user_forecast))
@@ -289,3 +289,8 @@ def get_top_forecast_user(tuple_user):
     return data
 
 
+def get_forecast_by_month(tuple_forecast):
+    data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    for tuple_u in tuple_forecast:
+        data.insert(tuple_u[0]-1, tuple_u[1])
+    return data

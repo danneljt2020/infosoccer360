@@ -160,7 +160,7 @@ class Match(db.Model):
         return Match.query.filter_by(status="NS").all()
 
     @staticmethod
-    def get_by_league(league,):
+    def get_by_league(league, ):
         return Match.query.filter_by(league_id=league).all()
 
     @staticmethod
@@ -245,3 +245,8 @@ class Forecast(db.Model):
             Forecast.user_id
         ).order_by(desc(func.count(Forecast.user_id)))
         return user_counts.all()
+
+    @staticmethod
+    def get_count_by_month():
+        data = db.session.query(func.month(Forecast.created), func.count(func.month(Forecast.created))).group_by(func.month(Forecast.created))
+        return data.all()
