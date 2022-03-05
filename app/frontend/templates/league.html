@@ -35,27 +35,41 @@
                                 <div class="col-md-8 col-sm-12 col-xs-12">
                                     <div class="row">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <h4>Próximos Partidos</h4>
                                             <div class="row">
                                                 <div id="tg-otherfixtures-slider"
                                                      class="tg-otherfixtures-slider tg-tickets">
                                                     <div class="swiper-wrapper">
-                                                        <div class="swiper-slide">
-                                                            <div class="tg-ticket">
-                                                                <time class="tg-matchdate">27<span>Junio</span></time>
-                                                                <div class="tg-matchdetail">
-                                                                    <span class="tg-theme-tag">Liga Santander</span>
-                                                                    <h4>Real Madrid <span>vs</span> Getafe</h4>
-                                                                    <ul class="tg-matchmetadata">
-                                                                        <li>
-                                                                            <time datetime="2016-05-03">16:30 PM</time>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                                <div class="tg-btnsbox">
-                                                                    <a class="tg-btn" href="#">ver</a>
+                                                        {% for match in next_matches %}
+                                                            <div class="swiper-slide">
+                                                                <div class="tg-ticket">
+                                                                    <time class="tg-matchdate">{{ match.start.strftime('%d') }}
+                                                                        <span>{{ match.start.strftime('%b') }}</span>
+                                                                    </time>
+                                                                    <div class="tg-matchdetail" style="width: 460px">
+                                                                        <span class="tg-theme-tag">Liga Santander</span>
+                                                                        <h4>
+                                                                            <img src="{{ url_for("static", filename="images/flag/") + match.team_1_id+".png" }}"
+                                                                                 style="width: 9%">
+                                                                            {{ match.team_1_name }}
+                                                                            <span> vs </span>
+                                                                            <img src="{{ url_for("static", filename="images/flag/") + match.team_2_id+".png" }}"
+                                                                                 style="width: 9%">
+                                                                            {{ match.team_2_name }}
+                                                                        </h4>
+                                                                        <ul class="tg-matchmetadata">
+                                                                            <li>
+                                                                                <time>16:30 PM</time>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                    <div class="tg-btnsbox">
+                                                                        <a class="tg-btn"
+                                                                           href="{{ url_for('frontend.match_detail',match_id=match.match_id) }}">ver</a>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
+                                                        {% endfor %}
                                                     </div>
                                                     <div class="tg-themebtnnext"><span class="fa fa-angle-down"></span>
                                                     </div>
@@ -67,81 +81,42 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4 col-sm-12 col-xs-12">
-                                    <div id="tg-matchscrollbar" class="tg-matchscrollbar tg-allmatchstatus">
+                                    <h4>Partidos Terminados</h4>
+                                    <div id="tg-matchscrollbar" style="height: 620px;" class="tg-matchscrollbar tg-allmatchstatus">
                                         <ul class="tg-matchtabnav" role="tablist">
-                                            <li role="presentation" class="active">
-                                                <a href="#one" aria-controls="one" role="tab" data-toggle="tab">
-                                                    <div class="tg-match">
-                                                        <div class="tg-box">
-                                                            <strong class="tg-teamlogo">
-                                                                <img src="{{ url_for("static", filename="images/team-logo/logo-s-01.png") }}"
-                                                                     alt="image description">
-                                                            </strong>
-                                                            <h4>win</h4>
+                                            {% for match_finish in finish_matches %}
+                                                <li role="presentation">
+                                                    <a href="{{ url_for('frontend.match_detail',match_id=match_finish.match_id) }}">
+                                                        <div class="tg-match">
+                                                            <div class="tg-box">
+                                                                <strong class="tg-teamlogo">
+                                                                    <img src="{{ url_for("static", filename="images/flag/") + match_finish.team_1_id+".png" }}">
+                                                                </strong>
+                                                                {% if match_finish.team_1_score>match_finish.team_2_score %}
+                                                                    <h4>win</h4>
+                                                                {% else %}
+                                                                    <h4>Lost</h4>
+                                                                {% endif %}
+                                                            </div>
+                                                            <div class="tg-box">
+                                                                <h3>{{ match_finish.team_1_score }}
+                                                                    - {{ match_finish.team_2_score }}</h3>
+                                                            </div>
+                                                            <div class="tg-box">
+                                                                <strong class="tg-teamlogo">
+                                                                    <img src="{{ url_for("static", filename="images/flag/") + match_finish.team_2_id+".png" }}">
+                                                                </strong>
+                                                                {% if match_finish.team_2_score>match_finish.team_1_score %}
+                                                                    <h4>win</h4>
+                                                                {% else %}
+                                                                    <h4>Lost</h4>
+                                                                {% endif %}
+                                                            </div>
                                                         </div>
-                                                        <div class="tg-box">
-                                                            <h3>6 - 4</h3>
-                                                        </div>
-                                                        <div class="tg-box">
-                                                            <strong class="tg-teamlogo">
-                                                                <img src="{{ url_for("static", filename="images/team-logo/logo-s-01.png") }}"
-                                                                     alt="image description">
-                                                            </strong>
-                                                            <h4>lose</h4>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li role="presentation">
-                                                <a href="#two" aria-controls="two" role="tab" data-toggle="tab">
-                                                    <div class="tg-match">
-                                                        <div class="tg-box">
-                                                            <strong class="tg-teamlogo">
-                                                                <img src="{{ url_for("static", filename="images/team-logo/logo-s-01.png") }}"
-                                                                     alt="image description">
-                                                            </strong>
-                                                            <h4>win</h4>
-                                                        </div>
-                                                        <div class="tg-box">
-                                                            <h3>6 - 4</h3>
-                                                        </div>
-                                                        <div class="tg-box">
-                                                            <strong class="tg-teamlogo">
-                                                                <img src="{{ url_for("static", filename="images/team-logo/logo-s-01.png") }}"
-                                                                     alt="image description">
-                                                            </strong>
-                                                            <h4>lose</h4>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li role="presentation">
-                                                <a href="#three" aria-controls="three" role="tab" data-toggle="tab">
-                                                    <div class="tg-match">
-                                                        <div class="tg-box">
-                                                            <strong class="tg-teamlogo">
-                                                                <img src="{{ url_for("static", filename="images/team-logo/logo-s-01.png") }}"
-                                                                     alt="image description">
-                                                            </strong>
-                                                            <h4>win</h4>
-                                                        </div>
-                                                        <div class="tg-box">
-                                                            <h3>6 - 4</h3>
-                                                        </div>
-                                                        <div class="tg-box">
-                                                            <strong class="tg-teamlogo">
-                                                                <img src="{{ url_for("static", filename="images/team-logo/logo-s-01.png") }}"
-                                                                     alt="image description">
-                                                            </strong>
-                                                            <h4>lose</h4>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </li>
+                                                    </a>
+                                                </li>
+                                            {% endfor %}
                                         </ul>
-                                    </div>
-                                    <div class="tg-btnbox">
-                                        <a class="tg-btn" href="#"><span>Ver todos</span></a>
                                     </div>
                                 </div>
                             </div>
@@ -165,40 +140,34 @@
                         <div class="tg-pointstablewrapper">
                             <div class="col-sm-8 col-xs-12">
                                 <div class="tg-pointstable">
-                                    <div class="tg-section-heading"><h2>Tabla de posiciones de la liga santander</h2>
+                                    <div class="tg-section-heading"><h2>Tabla de posiciones</h2>
                                     </div>
                                     <div id="tg-pointstable-slider" class="tg-pointstable-slider">
                                         <div class="swiper-wrapper">
-                                            <div class="swiper-slide">
-                                                <div class="tg-pointtable">
-                                                    <div class="tg-box">Real Madrid</div>
-                                                    <div class="tg-box">Win 21</div>
-                                                    <div class="tg-box">Lost 20</div>
-                                                    <div class="tg-box">Points 21</div>
-                                                    <div class="tg-box">Played 22</div>
+                                            {% for team in table %}
+                                                <div class="swiper-slide">
+                                                    <div class="tg-pointtable">
+                                                        <div class="tg-box">
+                                                            <img style="width: 8%;" src="{{ url_for("static", filename="images/flag/") + team.team_id+".png" }}">
+                                                            {{ team.team_name }}
+                                                        </div>
+                                                        <div class="tg-box">Win {{ team.won}}</div>
+                                                        <div class="tg-box">Lost {{ team.lost}}</div>
+                                                        <div class="tg-box">Points {{ team.points}}</div>
+                                                        <div class="tg-box">Played {{ team.games_played}}</div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <div class="tg-pointtable">
-                                                    <div class="tg-box">Barca</div>
-                                                    <div class="tg-box">Win 21</div>
-                                                    <div class="tg-box">Lost 20</div>
-                                                    <div class="tg-box">Points 21</div>
-                                                    <div class="tg-box">Played 22</div>
-                                                </div>
-                                            </div>
+                                            {% endfor %}
                                         </div>
                                         <div class="tg-themebtnnext"><span class="fa fa-angle-down"></span></div>
                                         <div class="tg-themebtnprev"><span class="fa fa-angle-up"></span></div>
-                                    </div>
-                                    <div class="tg-btnbox">
-                                        <a class="tg-btn" href="#"><span>view all</span></a>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-sm-4 col-xs-12 hidden-xs">
                                 <figure>
-                                    <img src="{{ url_for("static", filename="images/img-03.png") }}" alt="image description">
+                                    <img src="{{ url_for("static", filename="images/img-03.png") }}"
+                                         alt="image description">
                                 </figure>
                             </div>
                         </div>

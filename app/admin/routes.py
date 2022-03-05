@@ -141,10 +141,20 @@ def tables_scores():
 @login_required
 @admin_required
 def list_matches():
-    santander_matches = Match.get_by_league_id('laliga-santander')
-    premier_matches = Match.get_by_league_id('premier-league')
+    santander_matches = Match.get_by_league_id('laliga-santander', "NS")
+    premier_matches = Match.get_by_league_id('premier-league', "NS")
     return render_template("admin/match/list_match.html", santander=santander_matches,
-                           premier=premier_matches)
+                           premier=premier_matches, finish="no")
+
+
+@admin_bp.route("/admin/finish-matches")
+@login_required
+@admin_required
+def list_finish_matches():
+    santander_matches = Match.get_by_league_id('laliga-santander', "FT")
+    premier_matches = Match.get_by_league_id('premier-league', "FT")
+    return render_template("admin/match/list_match_finish.html", santander=santander_matches,
+                           premier=premier_matches, finish="yes")
 
 
 # Update Table Score
@@ -171,7 +181,7 @@ def update_table_score():
     return response
 
 
-# Update matches by league and round TODO agregar a una vista del admin
+# Update matches by league and round
 @admin_bp.route("/admin/update_match_by_league", methods=['PATCH'])
 @login_required
 @admin_required

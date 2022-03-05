@@ -1,0 +1,77 @@
+{% extends 'base_admin.html' %}
+
+{% block content %}
+
+    {% include 'common/sidebar.html' %}
+    <!-- /# sidebar -->
+    {% include 'common/header.html' %}
+
+    <div class="content-wrap">
+        <div class="main">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-8 p-r-0 title-margin-right">
+                        <div class="page-header">
+                            <div class="page-title">
+                                <h1>Listado de Juegos por Ligas Terminados</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /# column -->
+                    <div class="col-lg-4 p-l-0 title-margin-left">
+                        <div class="page-header">
+                            <div class="page-title">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="{{ url_for("admin.dashboard") }}">Dashboard</a>
+                                    </li>
+                                    <li class="breadcrumb-item active">Juegos por Ligas Terminados</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /# column -->
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body p-b-0">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs customtab" role="tablist">
+                                    <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#home2"
+                                                            role="tab"><span class="hidden-sm-up"><i
+                                            class="ti-home"></i></span> <span
+                                            class="hidden-xs-down">Liga Santander</span></a>
+                                    </li>
+                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#profile2"
+                                                            role="tab"><span class="hidden-sm-up"><i
+                                            class="ti-user"></i></span> <span
+                                            class="hidden-xs-down">Liga Premier</span></a>
+                                    </li>
+                                </ul>
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="home2" role="tabpanel">
+                                        {% include 'match/table_santander.html' %}
+                                    </div>
+                                    <div class="tab-pane" id="profile2" role="tabpanel">
+                                        {% include 'match/table_premier.html' %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /# row -->
+                {% include 'common/footer.html' %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{{ url_for("static", filename="js/lib/data-table/datatables.min.js") }}"></script>
+    <script src="{{ url_for("static", filename="js/lib/data-table/dataTables.buttons.min.js") }}"></script>
+    <script src="{{ url_for("static", filename="js/lib/data-table/buttons.flash.min.js") }}"></script>
+    <script src="{{ url_for("static", filename= "js/lib/data-table/buttons.html5.min.js") }}"></script>
+    <script src="{{ url_for("static", filename="js/lib/data-table/datatables-init.js") }}"></script>
+{% endblock %}
+

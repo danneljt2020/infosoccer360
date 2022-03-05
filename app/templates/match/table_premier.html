@@ -5,17 +5,20 @@
                 <div class="col-md-8">
                     <h5>Partidos de la Liga Premier</h5>
                 </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <div class="input-group input-group-append">
-                            <input type="date" class="premier_date form-control" placeholder="Search Round">
-                            <span class="input-group-btn">
-                                <button data-league="premier-league" class="btn_upd_matches_result btn btn-primary btn-group-right">
-                                    <i class="ti-search"></i>
+                {% if finish=="no" %}
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <div class="input-group input-group-append">
+                                <input type="date" class="premier_date form-control" placeholder="Search Round">
+                                <span class="input-group-btn">
+                                <button data-league="premier-league"
+                                        class="btn_upd_matches_result btn btn-primary btn-group-right">
+                                    <i class="ti-download"></i>
                                 </button></span>
+                            </div>
                         </div>
                     </div>
-                </div>
+                {% endif %}
             </div>
             <div class="bootstrap-data-table-panel">
                 <div class="table-responsive">
@@ -41,18 +44,18 @@
                                 <td>{{ row.start.strftime('%Y-%m-%d') }}</td>
                                 <td>
                                     {% if row.status == "NS" %}
-                                       <span class="badge badge-info">Pendiente</span>
-                                   {% elif row.status == "FT" %}
-                                       <span class="badge badge-success">Terminado</span>
-                                   {% else %}
-                                       <span class="badge badge-warning">{{ row.status }}</span>
-                                   {% endif %}
+                                        <span class="badge badge-info">Pendiente</span>
+                                    {% elif row.status == "FT" %}
+                                        <span class="badge badge-success">Terminado</span>
+                                    {% else %}
+                                        <span class="badge badge-warning">{{ row.status }}</span>
+                                    {% endif %}
                                 </td>
                                 <td style="text-align: left">{{ row.created.strftime('%Y-%m-%d') }}</td>
                                 <td style="text-align: center; width: 10%">
                                     {% if not row.status == "FT" %}
                                         <a class="btn_upd_match" style="cursor: pointer" data-id={{ row.match_id }}
-                                            data-date={{ row.start.strftime('%Y-%m-%d') }}>
+                                                data-date={{ row.start.strftime('%Y-%m-%d') }}>
                                             <span class="badge badge-warning">
                                                 <i class="ti ti-download"></i>
                                             </span>

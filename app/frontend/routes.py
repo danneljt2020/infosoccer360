@@ -3,7 +3,7 @@ from flask import render_template, request, make_response, jsonify
 from flask_login import login_required, current_user
 
 from . import frontend_bp
-from ..admin.models import Forecast, Match, Comment
+from ..admin.models import Forecast, Match, Comment, TableScore
 
 
 @frontend_bp.route("/", methods=['GET'])
@@ -18,12 +18,18 @@ def index():
 
 @frontend_bp.route("/liga-santander", methods=['GET'])
 def league_santander():
-    return render_template("league.html")
+    next_matches = Match.get_by_league_id("laliga-santander", "NS")
+    finish_matches = Match.get_by_league_id("laliga-santander", "FT")
+    table = TableScore.get_by_league("laliga-santander")
+    return render_template("league.html", next_matches=next_matches, finish_matches=finish_matches, table=table)
 
 
 @frontend_bp.route("/liga-premier", methods=['GET'])
 def league_premier():
-    return render_template("league.html")
+    next_matches = Match.get_by_league_id("premier-league", "NS")
+    finish_matches = Match.get_by_league_id("premier-league", "FT")
+    table = TableScore.get_by_league("premier-league")
+    return render_template("league.html", next_matches=next_matches, finish_matches=finish_matches, table=table)
 
 
 @frontend_bp.route("/match/<int:match_id>/", methods=['GET'])  # TODO validate errors
@@ -32,7 +38,10 @@ def match_detail(match_id):
     if match:
         forecasts = Forecast.get_by_match_id(match.id)
         comments = Comment.get_by_match_id(match.id)
-        return render_template("match_detail.html", match=match, forecasts=forecasts, comments=comments)
+        team_1 = TableScore.get_by_team_id(match.team_1_id)
+        team_2 = TableScore.get_by_team_id(match.team_2_id)
+        return render_template("match_detail.html", match=match, forecasts=forecasts, comments=comments, team_1=team_1,
+                               team_2=team_2)
     return render_template("error/404.html")
 
 

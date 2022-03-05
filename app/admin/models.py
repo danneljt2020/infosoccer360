@@ -52,6 +52,10 @@ class TableScore(db.Model):
     def get_all():
         return TableScore.query.all()
 
+    @staticmethod
+    def get_by_team_id(team_id):
+        return TableScore.query.filter_by(team_id=team_id).first()
+
 
 class Comment(db.Model):
     __tablename__ = 'comment'
@@ -74,9 +78,6 @@ class Comment(db.Model):
             db.session.add(self)
         db.session.commit()
 
-    # def user(self):
-    #     return User.query.get(self.user_id)
-
     def delete(self):
         db.session.delete(self)
         db.session.commit()
@@ -95,7 +96,7 @@ class Comment(db.Model):
 
     @staticmethod
     def get_by_match_id(match_id):
-        return Comment.query.filter_by(match_id=match_id).all()
+        return Comment.query.filter_by(state=1, match_id=match_id).all()
 
 
 class Match(db.Model):
@@ -151,8 +152,12 @@ class Match(db.Model):
         return Match.query.all()
 
     @staticmethod
-    def get_by_league_id(league_id):
-        return Match.query.filter_by(league_id=league_id).all()
+    def get_by_league_id(league_id, state):
+        return Match.query.filter_by(status=state, league_id=league_id).all()
+
+    @staticmethod
+    def get_by_league(league,):
+        return Match.query.filter_by(league_id=league).all()
 
     @staticmethod
     def get_by_match_id(match_id):

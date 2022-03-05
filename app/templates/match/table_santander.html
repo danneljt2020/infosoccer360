@@ -5,18 +5,20 @@
                 <div class="col-md-8">
                     <h5>Partidos de la Liga Santander</h5>
                 </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <div class="input-group input-group-append">
-                            <input type="date" class="santander_date form-control" placeholder="Search Round">
-                            <span class="input-group-btn">
+                {% if finish=="no" %}
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <div class="input-group input-group-append">
+                                <input type="date" class="santander_date form-control" placeholder="Search Round">
+                                <span class="input-group-btn">
                                 <button data-league="laliga-santander"
                                         class="btn_upd_matches_result btn btn-primary btn-group-right">
-                                    <i class="ti-search"></i>
+                                    <i class="ti-download"></i>
                                 </button></span>
+                            </div>
                         </div>
                     </div>
-                </div>
+                {% endif %}
             </div>
             <div class="bootstrap-data-table-panel">
                 <div class="table-responsive">
@@ -53,7 +55,7 @@
                                 <td style="text-align: left">
                                     {% if not row.status == "FT" %}
                                         <a class="btn_upd_match" style="cursor: pointer" data-id={{ row.match_id }}
-                                            data-date={{ row.start.strftime('%Y-%m-%d') }}>
+                                                data-date={{ row.start.strftime('%Y-%m-%d') }}>
                                             <span class="badge badge-warning">
                                                 <i class="ti ti-download"></i>
                                             </span>

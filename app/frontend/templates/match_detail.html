@@ -127,13 +127,15 @@
                                     <div class="tg-section-heading">
                                         <h2>Dejanos tu impresión sobre el partido!</h2>
                                     </div>
-                                        <div class="form-group">
-                                            <textarea maxlength="250" style="width: 100%;resize: none;height: 100px; border: 1px solid #42404a;" id="txt_comment" name="message"
+                                    <div class="form-group">
+                                            <textarea maxlength="250"
+                                                      style="width: 100%;resize: none;height: 100px; border: 1px solid #42404a;"
+                                                      id="txt_comment" name="message"
                                                       placeholder="Mensaje" required></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <button id="btn_comment" class="tg-btn">Enviar</button>
-                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <button id="btn_comment" class="tg-btn">Enviar</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -171,8 +173,7 @@
                                 </div>
                                 <div class="form-group">
                                     {% if match.status == "NS" %}
-                                        <a class="tg-btn" href="javascript().html" data-toggle="modal"
-                                           data-target="#modal-pronostico-detail">Pronosticar</a>
+                                        <a id="btn_forecast" style="cursor:pointer;" class="tg-btn" data-toggle="modal">Pronosticar</a>
                                     {% endif %}
                                 </div>
                             </aside>
@@ -189,6 +190,9 @@
 {% block extra_js %}
     <script src="{{ url_for("static", filename="js/lib/sweetalert/sweetalert.min.js") }}"></script>
     <script>
+        $("#btn_forecast").click(function (evt) {
+            $('#modal-pronostico-detail').modal('show');
+        });
         $("#btn_cancel_modal").click(function (evt) {
             $('#modal-pronostico-detail').modal('hide');
         });
@@ -215,6 +219,7 @@
                         },
                         success: function (response) {
                             if (response.status === "success") {
+                                $('#modal-pronostico-detail').modal('hide');
                                 setTimeout(function () {
                                     swal("Excelente!!", "Su pronóstico se ha registrado satisfactoriamente.", "success");
                                 }, 1000);
@@ -253,7 +258,7 @@
                         $("#txt_comment").val(" ")
                         if (response.status === "success") {
                             setTimeout(function () {
-                                swal("Excelente!!", "Su pronóstico se ha registrado satisfactoriamente.", "success");
+                                swal("Excelente!!", "Su pronóstico se ha registrado satisfactoriamente. Espera de aprobación.", "success");
                             }, 1000);
                             setTimeout(function () {
                                 window.location.reload()
