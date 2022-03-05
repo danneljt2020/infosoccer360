@@ -93,6 +93,10 @@ class Comment(db.Model):
     def get_all():
         return Comment.query.all()
 
+    @staticmethod
+    def get_by_match_id(match_id):
+        return Comment.query.filter_by(match_id=match_id).all()
+
 
 class Match(db.Model):
     __tablename__ = 'match'
@@ -125,6 +129,9 @@ class Match(db.Model):
         self.team_1_score = "0"
         self.team_2_score = "0"
         self.start = start
+
+    def __repr__(self):
+        return f'<Comment {self.round}>'
 
     def save(self):
         if not self.id:
@@ -168,12 +175,14 @@ class Forecast(db.Model):
     note = db.Column(db.String(400), nullable=True)
     league = db.Column(db.String(60), nullable=True)
 
-    def __init__(self, user_id, match_id, team_1_score, team_2_score, note):
+    def __init__(self, user_id, match_id, team_1_score, team_2_score):
         self.user_id = user_id
         self.match_id = match_id
         self.team_1_score = team_1_score
         self.team_2_score = team_2_score
-        self.note = note
+
+    def __repr__(self):
+        return f'<Comment {self.league}>'
 
     def save(self):
         if not self.id:
@@ -195,6 +204,14 @@ class Forecast(db.Model):
     @staticmethod
     def get_by_league(league):
         return Forecast.query.filter_by(league=league).all()
+
+    @staticmethod
+    def get_by_match_id(match_id):
+        return Forecast.query.filter_by(match_id=match_id).all()
+
+    @staticmethod
+    def get_by_user_id_match_id(user_id, match_id):
+        return Forecast.query.filter_by(user_id=user_id, match_id=match_id).all()
 
     @staticmethod
     def get_all():

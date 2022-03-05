@@ -1,5 +1,9 @@
 {% extends 'base_frontend.html' %}
 
+{% block extra_css %}
+    <link href="{{ url_for("static",filename = 'css/lib/sweetalert/sweetalert.css') }}" rel="stylesheet"/>
+{% endblock %}
+
 {% block banner %}
     <div class="tg-banner tg-haslayout">
         <div class="tg-imglayer">
@@ -27,36 +31,64 @@
             <div class="container">
                 <div class="row">
                     <div id="tg-twocolumns" class="tg-twocolumns tg-haslayout">
-                        <div class="col-md-9 col-sm-8 col-xs-12 pull-left">
+                        <div class="col-md-8 col-sm-8 col-xs-12 pull-left">
                             <div class="tg-resultdetail">
                                 <div class="tg-matchresult">
                                     <div class="tg-box">
-                                        <div class="tg-score"><h3>4 - 3</h3></div>
-                                        <div class="tg-teamscore" style="min-height: 350px!important;">
-                                            <strong class="tg-team-logo">
-                                                <a href="#">
-                                                    <img src="{{ url_for("static", filename="images/team-logo/logo-01.png") }}" alt="image description">
-                                                </a>
-                                            </strong>
-                                            <div class="tg-team-nameplusstatus">
-                                                <h4><a href="#">Real Madrid ( Win )</a></h4>
-                                            </div>
-                                            <ul class="tg-playernameplusgoadtime">
-                                                <li>Getafe (15)</li>
-                                            </ul>
+                                        <div class="tg-score">
+                                            <h3>{{ match.team_1_score }} - {{ match.team_2_score }}</h3>
+                                            <h4 style="margin-left: 28px;margin-top:55px;color: whitesmoke">
+                                                {% if match.status == "FT" %}
+                                                    Terminado
+                                                {% else %}
+                                                    {{ match.start.strftime('%Y-%m-%d') }}
+                                                {% endif %}
+                                            </h4>
                                         </div>
                                         <div class="tg-teamscore" style="min-height: 350px!important;">
                                             <strong class="tg-team-logo">
                                                 <a href="#">
-                                                    <img src="{{ url_for("static", filename="images/team-logo/logo-01.png") }}" alt="image description">
+                                                    <img src="{{ url_for("static", filename="images/flag/") + match.team_1_id+".png" }}"
+                                                         alt="image description">
                                                 </a>
                                             </strong>
                                             <div class="tg-team-nameplusstatus">
-                                                <h4><a href="#">horned grogs ( lose )</a></h4>
+                                                <h4><a>{{ match.team_1_name }}</a></h4>
+                                                <br>
+                                                <ul class="tg-playernameplusgoadtime">
+                                                    {% if match.status == "FT" %}
+                                                        {% if  match.team_1_score  > match.team_2_score %}
+                                                            <li><strong style="color: whitesmoke">GANADOR</strong></li>
+                                                        {% elif match.team_1_score < match.team_2_score %}
+                                                            <li><strong style="color: whitesmoke">PERDEDOR</strong></li>
+                                                        {% else %}
+                                                            <li><strong style="color: whitesmoke">EMPATE</strong></li>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                </ul>
                                             </div>
-                                            <ul class="tg-playernameplusgoadtime">
-                                                <li>Ethan Ryberg (22)</li>
-                                            </ul>
+                                        </div>
+                                        <div class="tg-teamscore" style="min-height: 350px!important;">
+                                            <strong class="tg-team-logo">
+                                                <a href="#">
+                                                    <img src="{{ url_for("static", filename="images/flag/") + match.team_2_id+".png" }}"
+                                                         alt="image description">
+                                                </a>
+                                            </strong>
+                                            <div class="tg-team-nameplusstatus">
+                                                <h4><a href="#">{{ match.team_2_name }}</a></h4><br>
+                                                <ul class="tg-playernameplusgoadtime">
+                                                    {% if match.status == "FT" %}
+                                                        {% if  match.team_2_score  > match.team_1_score %}
+                                                            <li><strong style="color: whitesmoke">GANADOR</strong></li>
+                                                        {% elif match.team_2_score < match.team_1_score %}
+                                                            <li><strong style="color: whitesmoke">PERDEDOR</strong></li>
+                                                        {% else %}
+                                                            <li><strong style="color: whitesmoke">EMPATE</strong></li>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -64,47 +96,31 @@
                                     <div class="tg-section-heading">
                                         <h2>Comentarios</h2>
                                     </div>
-                                    <ul style="height: 300px;overflow-y: scroll;">
-                                        <li>
-                                            <div class="tg-comment">
-                                                <figure style="width: 20%">
-                                                    <a href="#">
-                                                        <img src="{{ url_for("static", filename="images/thumbnails/img-08.jpg") }}" alt="image description">
-                                                    </a>
-                                                </figure>
-                                                <div class="tg-commentdata">
-                                                    <span class="tg-theme-tag"><time
-                                                            datetime="2016-05-03">May 3, 2016</time></span>
-                                                    <h5 style="position: relative; bottom: 3px;left: 8px;">Will
-                                                        Mccaulley</h5>
-                                                    <div class="tg-description">
-                                                        <p>Consectetur adipisicing elit, sed do eiusmod tempor
-                                                            incididunt ut labore etire magna aliqua. Ut enim ad minim
-                                                            veniam.</p>
+                                    <ul style="max-height: 300px;overflow-y: scroll;">
+                                        {% if comments | length == 0 %}
+                                            <h4>No se han realizado comentarios sobre este partido!</h4>
+                                        {% else %}
+                                            {% for comment in comments %}
+                                                <li>
+                                                    <div class="tg-comment">
+                                                        <figure style="width: 20%">
+                                                            <a href="#">
+                                                                <img src="{{ url_for("static", filename="images/thumbnails/img-08.jpg") }}"
+                                                                     alt="image description">
+                                                            </a>
+                                                        </figure>
+                                                        <div class="tg-commentdata">
+                                                        <span class="tg-theme-tag">
+                                                            <time>{{ comment.created.strftime('%d %b, %Y') }}</time></span>
+                                                            <h5 style="position: relative; bottom: 3px;left: 8px;">{{ comment.user.name }} {{ comment.user.last }}</h5>
+                                                            <div class="tg-description">
+                                                                <p>{{ comment.content }}</p>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="tg-comment">
-                                                <figure style="width: 20%">
-                                                    <a href="#">
-                                                        <img src="{{ url_for("static", filename="images/thumbnails/img-08.jpg") }}" alt="image description">
-                                                    </a>
-                                                </figure>
-                                                <div class="tg-commentdata">
-                                                    <span class="tg-theme-tag"><time
-                                                            datetime="2016-05-03">May 3, 2016</time></span>
-                                                    <h5 style="position: relative; bottom: 3px;left: 8px;">Will
-                                                        Mccaulley</h5>
-                                                    <div class="tg-description">
-                                                        <p>Consectetur adipisicing elit, sed do eiusmod tempor
-                                                            incididunt ut labore etire magna aliqua. Ut enim ad minim
-                                                            veniam.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
+                                                </li>
+                                            {% endfor %}
+                                        {% endif %}
                                     </ul>
                                 </div>
                                 <div id="tg-leavecomment" class="tg-leavecomment">
@@ -122,27 +138,46 @@
                                             </div>
                                         </fieldset>
                                     </form>
-
-
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3 col-sm-4 col-xs-12">
+                        <div class="col-md-4 col-sm-4 col-xs-12">
                             <aside id="tg-sidebar" class="tg-sidebar">
                                 <div class="tg-widget tg-catagories-widget">
                                     <h3>Últimos Pronósticos</h3>
                                     <ul style="height: 300px;overflow-y: scroll;">
-                                        <li>
-                                            <a><em>Juan Perez</em><i>3-1</i></a>
-                                        </li>
-                                        <li>
-                                            <a><em>Pepe antonio</em><i>6-3</i></a>
-                                        </li>
+                                        {% if forecasts | length == 0 %}
+                                            <h5>No existen pronósticos!</h5>
+                                        {% else %}
+                                            {% for forecast in forecasts %}
+                                                <li>
+                                                    <a style="pointer-events: none">
+                                                        <em>
+                                                            <strong>{{ forecast.user.name }} {{ forecast.user.last }}</strong></em>
+                                                        <i>
+                                                        <span>
+                                                            <img style="width: 22%;"
+                                                                 src="{{ url_for("static", filename="images/flag/") + forecast.match.team_1_id+".png" }}">
+                                                            <strong style="font-size: 18px;">{{ forecast.team_1_score }} </strong>
+                                                        </span>
+                                                            <strong style="font-size: 26px;"> - </strong>
+                                                            <span>
+                                                           <strong style="font-size: 18px;">{{ forecast.team_2_score }} </strong>
+                                                           <img style="width: 22%;"
+                                                                src="{{ url_for("static", filename="images/flag/") + forecast.match.team_2_id+".png" }}">
+                                                       </span>
+                                                        </i>
+                                                    </a>
+                                                </li>
+                                            {% endfor %}
+                                        {% endif %}
                                     </ul>
                                 </div>
                                 <div class="form-group">
-                                    <a class="tg-btn" href="javascript().html" data-toggle="modal"
-                                       data-target="#modal-pronostico-detail">Pronosticar</a>
+                                    {% if match.status == "NS" %}
+                                        <a class="tg-btn" href="javascript().html" data-toggle="modal"
+                                           data-target="#modal-pronostico-detail">Pronosticar</a>
+                                    {% endif %}
                                 </div>
                             </aside>
                         </div>
@@ -152,6 +187,55 @@
         </div>
     </main>
     <!--MODAL-->
-   {% include "modal.html" %}
+    {% include "modal.html" %}
 {% endblock %}
 
+{% block extra_js %}
+    <script src="{{ url_for("static", filename="js/lib/sweetalert/sweetalert.min.js") }}"></script>
+    <script>
+        $("#btn_cancel_modal").click(function (evt) {
+            $('#modal-pronostico-detail').modal('hide');
+        });
+        $("#btn_add_modal").click(function (evt) {
+            let team_1_score = $('#team_1').val()
+            let team_2_score = $('#team_2').val()
+
+            swal({
+                    title: "Está seguro de realizar este pronóstico?",
+                    text: "",
+                    type: "info",
+                    showCancelButton: true,
+                    closeOnConfirm: false,
+                    showLoaderOnConfirm: true,
+                },
+                function () {
+                    $.ajax({
+                        method: 'POST',
+                        url: "{{ url_for('frontend.create_forecast') }}",
+                        data: {
+                            'match_id': '{{ match.id }}',
+                            'team_1_score': team_1_score,
+                            'team_2_score': team_2_score,
+                        },
+                        success: function (response) {
+                            if (response.status === "success") {
+                                setTimeout(function () {
+                                    swal("Excelente!!", "Su pronóstico se ha registrado satisfactoriamente.", "success");
+                                }, 1000);
+                                setTimeout(function () {
+                                    window.location.reload()
+                                }, 5000);
+                            }
+                            if(response.status === "not_found"){
+                                swal("Ops!!", "Algo ha salido mal! Intentelo mas tarde.", "error");
+                            }
+                             if(response.status === "duplicate"){
+                                swal("Atención!!", "Ya tienes un pronóstico para este partido.", "error");
+                            }
+                        }
+                    })
+                });
+        });
+
+    </script>
+{% endblock %}
