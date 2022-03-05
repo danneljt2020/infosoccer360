@@ -156,6 +156,10 @@ class Match(db.Model):
         return Match.query.filter_by(status=state, league_id=league_id).all()
 
     @staticmethod
+    def get_active_games():
+        return Match.query.filter_by(status="NS").all()
+
+    @staticmethod
     def get_by_league(league,):
         return Match.query.filter_by(league_id=league).all()
 
@@ -224,10 +228,20 @@ class Forecast(db.Model):
 
     @staticmethod
     def get_more_match():
-        user_counts = db.session.query(
+        match_counts = db.session.query(
             Forecast.match_id,
             func.count(Forecast.match_id).label("total_counts")
         ).group_by(
             Forecast.match_id
         ).order_by(desc(func.count(Forecast.match_id)))
+        return match_counts.all()
+
+    @staticmethod
+    def get_more_user():
+        user_counts = db.session.query(
+            Forecast.user_id,
+            func.count(Forecast.user_id).label("total_counts"),
+        ).group_by(
+            Forecast.user_id
+        ).order_by(desc(func.count(Forecast.user_id)))
         return user_counts.all()
