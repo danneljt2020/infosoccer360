@@ -40,14 +40,15 @@ def match_detail(match_id):
 @login_required
 def create_comment():
     match_id = request.values.get('match_id')
+    content = request.values.get('content')
+    user_id = getattr(current_user, 'id', False)
+
     if Match.get_by_id(match_id):
-        content = request.values.get('content')
-        user_id = getattr(current_user, 'id', False)
         comment = Comment(user_id, match_id, content)
         comment.save()
         respond = make_response(jsonify({'status': 'success'}), 200)
     else:
-        respond = make_response(jsonify({'status': 'match not found'}), 404)
+        respond = make_response(jsonify({'status': 'not_found'}), 404)
     return respond
 
 
