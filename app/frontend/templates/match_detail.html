@@ -132,10 +132,17 @@
                                                       style="width: 100%;resize: none;height: 100px; border: 1px solid #42404a;"
                                                       id="txt_comment" name="message"
                                                       placeholder="Mensaje" required></textarea>
+                                        <span id="error_comment" hidden
+                                              style="color: darkred;">Este campo es requerido.</span>
                                     </div>
-                                    <div class="form-group">
-                                        <button id="btn_comment" class="tg-btn">Enviar</button>
-                                    </div>
+                                    {% if current_user.is_authenticated %}
+                                        <div class="form-group">
+                                            <button id="btn_comment" class="tg-btn">Enviar</button>
+                                        </div>
+                                   {% else %}
+                                       <span style="font-size:18px;color:#8b1014;">Debe autenticarse para comentar.</span>
+                                   {% endif %}
+
                                 </div>
                             </div>
                         </div>
@@ -172,9 +179,13 @@
                                     </ul>
                                 </div>
                                 <div class="form-group">
-                                    {% if match.status == "NS" %}
-                                        <a id="btn_forecast" style="cursor:pointer;" class="tg-btn" data-toggle="modal">Pronosticar</a>
-                                    {% endif %}
+                                   {% if current_user.is_authenticated %}
+                                        {% if match.status == "NS" %}
+                                            <a id="btn_forecast" style="cursor:pointer;" class="tg-btn" data-toggle="modal">Pronosticar</a>
+                                        {% endif %}
+                                   {% else %}
+                                       <span style="font-size:18px;color:#8b1014;">Debe autenticarse para hacer pronósticos</span>
+                                   {% endif %}
                                 </div>
                             </aside>
                         </div>
@@ -199,76 +210,110 @@
         $("#btn_add_modal").click(function (evt) {
             let team_1_score = $('#team_1').val()
             let team_2_score = $('#team_2').val()
+            $("#error_team_1_req").attr('hidden', 'hidden');
+            $("#error_team_2_req").attr('hidden', 'hidden');
+            if (validateForecast(team_1_score, team_2_score)) {
+                swal({
+                        title: "Está seguro de realizar este pronóstico?",
+                        text: "",
+                        type: "info",
+                        showCancelButton: true,
+                        closeOnConfirm: false,
+                        showLoaderOnConfirm: true,
+                    },
+                    function () {
+                        $.ajax({
+                            method: 'POST',
+                            url: "{{ url_for('frontend.create_forecast') }}",
+                            data: {
+                                'match_id': '{{ match.id }}',
+                                'team_1_score': team_1_score,
+                                'team_2_score': team_2_score,
+                            },
+                            success: function (response) {
+                                if (response.status === "success") {
+                                    $('#modal-pronostico-detail').modal('hide');
+                                    setTimeout(function () {
+                                        swal("Excelente!!", "Su pronóstico se ha registrado satisfactoriamente.", "success");
+                                    }, 1000);
+                                    setTimeout(function () {
+                                        window.location.reload()
+                                    }, 5000);
+                                }
+                                if (response.status === "not_found") {
+                                    swal("Ops!!", "Algo ha salido mal! Intentelo mas tarde.", "error");
+                                }
+                                if (response.status === "duplicate") {
+                                    swal("Atención!!", "Ya tienes un pronóstico para este partido.", "error");
+                                }
+                            }
+                        })
+                    });
+            }
+        });
 
-            swal({
+        $("#btn_comment").click(function (evt) {
+            let content = $("#txt_comment").val();
+            if (content && !onlySpaces(content)) {
+                $("#error_comment").attr('hidden', 'hidden');
+                swal({
                     title: "Está seguro de realizar este pronóstico?",
                     text: "",
                     type: "info",
                     showCancelButton: true,
                     closeOnConfirm: false,
                     showLoaderOnConfirm: true,
-                },
-                function () {
+                }, function () {
                     $.ajax({
                         method: 'POST',
-                        url: "{{ url_for('frontend.create_forecast') }}",
+                        url: "{{ url_for('frontend.create_comment') }}",
                         data: {
                             'match_id': '{{ match.id }}',
-                            'team_1_score': team_1_score,
-                            'team_2_score': team_2_score,
+                            'content': $("#txt_comment").val(),
                         },
                         success: function (response) {
+                            $("#txt_comment").val(" ")
                             if (response.status === "success") {
-                                $('#modal-pronostico-detail').modal('hide');
                                 setTimeout(function () {
-                                    swal("Excelente!!", "Su pronóstico se ha registrado satisfactoriamente.", "success");
+                                    swal("Excelente!!", "Su pronóstico se ha registrado satisfactoriamente. Espera de aprobación.", "success");
                                 }, 1000);
                                 setTimeout(function () {
                                     window.location.reload()
                                 }, 5000);
-                            }
-                            if (response.status === "not_found") {
+                            } else {
                                 swal("Ops!!", "Algo ha salido mal! Intentelo mas tarde.", "error");
-                            }
-                            if (response.status === "duplicate") {
-                                swal("Atención!!", "Ya tienes un pronóstico para este partido.", "error");
                             }
                         }
                     })
                 });
-        });
-
-        $("#btn_comment").click(function (evt) {
-            swal({
-                title: "Está seguro de realizar este pronóstico?",
-                text: "",
-                type: "info",
-                showCancelButton: true,
-                closeOnConfirm: false,
-                showLoaderOnConfirm: true,
-            }, function () {
-                $.ajax({
-                    method: 'POST',
-                    url: "{{ url_for('frontend.create_comment') }}",
-                    data: {
-                        'match_id': '{{ match.id }}',
-                        'content': $("#txt_comment").val(),
-                    },
-                    success: function (response) {
-                        $("#txt_comment").val(" ")
-                        if (response.status === "success") {
-                            setTimeout(function () {
-                                swal("Excelente!!", "Su pronóstico se ha registrado satisfactoriamente. Espera de aprobación.", "success");
-                            }, 1000);
-                            setTimeout(function () {
-                                window.location.reload()
-                            }, 5000);
-                        } else {
-                            swal("Ops!!", "Algo ha salido mal! Intentelo mas tarde.", "error");
-                        }
-                    }
-                })
-            });
+            } else {
+                $("#error_comment").removeAttr("hidden")
+            }
         })
+
+
+        function validateForecast(team_1_score, team_2_score) {
+            let flag = true;
+            if(onlySpaces(team_1_score)){
+                $("#error_team_1_req").removeAttr("hidden")
+                flag = false;
+            }
+
+            if(onlySpaces(team_2_score)){
+                $("#error_team_2_req").removeAttr("hidden")
+                flag = false;
+            }
+
+            return flag;
+        }
+
+        function onlySpaces(str) {
+            return str.trim().length === 0;
+        }
+
+        function validateNumber(e) {
+            const pattern = /^[0-9]$/;
+            return pattern.test(e.key )
+        }
     </script>
 {% endblock %}
