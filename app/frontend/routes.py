@@ -32,7 +32,7 @@ def league_premier():
     return render_template("league.html", next_matches=next_matches, finish_matches=finish_matches, table=table)
 
 
-@frontend_bp.route("/match/<int:match_id>/", methods=['GET'])  # TODO validate errors
+@frontend_bp.route("/match/<int:match_id>/", methods=['GET'])
 def match_detail(match_id):
     match = Match.get_by_match_id(match_id)
     if match:
