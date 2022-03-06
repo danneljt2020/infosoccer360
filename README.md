@@ -15,7 +15,7 @@ estadísticas de las diferentes ligas.
 
 Para descargar el proyecto puedes clonar el repositorio:
 
-    git clone https://github.com/danneljt2020/infosoccer360/tree/develop
+    git clone https://github.com/danneljt2020/infosoccer360.git
 
 #### Instalación de dependencias
 En el proyecto se distribuye un fichero (requirements.txt) con todas las dependencias. Para instalarlas
