@@ -1,4 +1,4 @@
-#CICE infosoccer360
+# CICE infosoccer360
 
 infosoccer360 es un sistema desarrollado para los amantes al deporte de las multitudes,
 el Fútbol. Con el sistema podrán visualizar todas estadísticas de las Ligas Santander y la
@@ -11,7 +11,7 @@ estadísticas relacionadas a los partidos. El sistema contará con una administr
 se gestionarán los usuarios, los comentarios, se consultarán y actualizarán las
 estadísticas de las diferentes ligas.
 
-#Instalación
+# Instalación
 
 Para descargar el proyecto puedes clonar el repositorio:
 
@@ -23,7 +23,7 @@ basta con ejectuar:
 
      pip3 install -r requirements.txt
 
-###Base de Datos
+### Base de Datos
 Cargar la base de datos subida a la carpeta del proyecto
 
 **Nota:** Se uso mysql
@@ -36,7 +36,7 @@ puedes arrancar el proyecto ejecutando:
 
      python3 entrypoint.py
  
-####Usuario adminstrador
+#### Usuario adminstrador
  
 **user:**      admin@gmail.com
 
