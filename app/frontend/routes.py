@@ -32,6 +32,13 @@ def league_premier():
     return render_template("league.html", next_matches=next_matches, finish_matches=finish_matches, table=table)
 
 
+@frontend_bp.route("/mis-pronosticos", methods=['GET'])
+def my_forecast():
+    user_id = getattr(current_user, 'id', False)
+    forecast = Forecast.get_by_user_id(user_id)
+    return render_template("my_forecast.html", forecast=forecast)
+
+
 @frontend_bp.route("/match/<int:match_id>/", methods=['GET'])
 def match_detail(match_id):
     match = Match.get_by_match_id(match_id)

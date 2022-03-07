@@ -16,7 +16,7 @@
                                 <nav style="float: right;" class="tg-addnav">
                                     {% if current_user.is_authenticated %}
                                         <ul>
-                                            <li><a href="{{ url_for("auth.logout") }}">Mis Pronósticos</a></li>
+                                            <li><a href="{{ url_for("frontend.my_forecast") }}">Mis Pronósticos</a></li>
                                             <li><span style="color: whitesmoke">{{ current_user.name }}!</span>  </li>
                                             <li><a href="{{ url_for("auth.logout") }}">Salir</a></li>
                                         </ul>

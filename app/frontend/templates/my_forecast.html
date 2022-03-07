@@ -1,0 +1,115 @@
+{% extends 'base_frontend.html' %}
+
+{% block extra_css %}
+    {#    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" rel="stylesheet"/>#}
+    {#    <link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css" rel="stylesheet"/>#}
+    <link href="{{ url_for("static",filename = 'css/lib/data-table/buttons.bootstrap.min.css') }}" rel="stylesheet"/>
+{% endblock %}
+
+{% block banner %}
+    <div class="tg-banner tg-haslayout">
+        <div class="tg-imglayer">
+            <img src="{{ url_for("static", filename="images/bg-pattran.png") }}" alt="image desctription">
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="tg-banner-content tg-haslayout">
+                    <div class="tg-pagetitle">
+                        <h1>Mis pronósticos</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block main %}
+    <main id="tg-main" class="tg-main tg-haslayout">
+        <!--************************************
+                Fixtures Start
+        *************************************-->
+        <section class="tg-main-section tg-haslayout">
+            <div class="container">
+                <div class="tg-section-name">
+                    <h2>Mis pronósticos</h2>
+                </div>
+                <div class="col-md-11 col-xs-11 pull-right">
+                    <div class="row">
+                        <div class="bootstrap-data-table-panel">
+                            <table id="example" class="table table-striped table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Jornada</th>
+                                    <th style="width: 36%">Partido</th>
+                                    <th>Estado</th>
+                                    <th>Pronóstico</th>
+                                    <th>Resultado</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for data in forecast %}
+                                    <tr>
+                                        <td><strong>{{ data.match.round }}</strong> </td>
+                                        <td style="text-align: left; font-weight: bold;">
+                                            <span style="margin-left: 5px">
+                                                <img style="width: 7%" src="{{ url_for("static", filename="images/flag/") + data.match.team_1_id+".png" }}">
+                                            </span>
+                                            {{ data.match.team_1_name }} <strong style="margin: 5px"> - </strong>
+                                            <span>
+                                                <img style="width: 7%" src="{{ url_for("static", filename="images/flag/") + data.match.team_2_id+".png" }}">
+                                            </span>
+                                            {{ data.match.team_2_name }}
+                                        </td>
+                                        <td style="font-weight: bold">
+                                            {% if data.match.status == "NS" %}
+                                                <span class="badge primary" style="background-color: #86797d">Pendiente</span>
+                                            {% else %}
+                                                <span class="badge badge-light" style="background-color: #0f9d58">Finalizado</span>
+                                            {% endif %}
+                                        </td>
+                                        <td style="font-weight: bold">
+                                            <img style="width: 16%" src="{{ url_for("static", filename="images/flag/") + data.match.team_1_id+".png" }}">
+                                            {{ data.team_1_score }}
+                                            -
+                                            <img style="width: 16%" src="{{ url_for("static", filename="images/flag/") + data.match.team_2_id+".png" }}">
+                                            {{ data.team_2_score }}
+                                        </td>
+                                        <td style="font-weight: bold">
+                                            <img style="width: 16%" src="{{ url_for("static", filename="images/flag/") + data.match.team_1_id+".png" }}">
+                                            {{ data.match.team_1_score }}
+                                            -
+                                            <img style="width: 16%" src="{{ url_for("static", filename="images/flag/") + data.match.team_2_id+".png" }}">
+                                            {{ data.match.team_2_score }}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <th>Jornada</th>
+                                    <th>Partido</th>
+                                    <th>Estado</th>
+                                    <th>Pronóstico</th>
+                                    <th>Resultado</th>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--************************************
+                Fixtures End
+        *************************************-->
+    </main>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{{ url_for("static", filename="js/lib/data-table/datatables.min.js") }}"></script>
+    <script src="{{ url_for("static", filename="js/lib/data-table/dataTables.buttons.min.js") }}"></script>
+    <script src="{{ url_for("static", filename="js/lib/data-table/buttons.flash.min.js") }}"></script>
+    <script src="{{ url_for("static", filename= "js/lib/data-table/buttons.html5.min.js") }}"></script>
+    <script src="{{ url_for("static", filename="js/lib/data-table/datatables-init.js") }}"></script>
+{% endblock %}
